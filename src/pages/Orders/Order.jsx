@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Header from "../../components/PageHeader/Header";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { safalBackend } from "../../constants/apiRoutes";
 function Order() {
     const { id } = useParams();
     const [data, setData] = useState({});
@@ -11,7 +12,7 @@ function Order() {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/order/${id}`);
+            const response = await axios.get(`${safalBackend}/order/${id}`);
             if (response.data.success) {
                 setData(response.data.data);
                 setStatus(response.data.data.order.orderStatus); // Initialize status
@@ -26,7 +27,7 @@ function Order() {
         const newStatus = e.target.value;
         setStatus(newStatus);
         try {
-            const response = await axios.patch(`http://localhost:5000/api/order/${id}`, {
+            const response = await axios.patch(`${safalBackend}/order/${id}`, {
                 orderStatus: newStatus, // Send the new status to the backend
             });
             console.log(response.data)

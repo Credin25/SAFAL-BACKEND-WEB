@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import EditButton from "../../components/Buttons/EditButton";
 import { useNavigate } from "react-router-dom";
+import { safalBackend } from "../../constants/apiRoutes";
 const OurOrders = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ const OurOrders = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/order');
+                const response = await axios.get(`${safalBackend}/order`);
                 if (response.data.success) {
                     const orders = response.data.data.map(order => ({
                         orderId: order.orderId,
@@ -22,8 +23,11 @@ const OurOrders = () => {
                         orderedItems: order.orderedItems.map(item => `${item.productId.name} (x${item.quantity})`).join(', '),
                         orderDate: new Date(order.orderDate).toLocaleDateString(),
                         orderStatus: order.orderStatus,
+                        orderedFor: order?.orderedFor
+                            ? `${order.orderedFor.firstName} ${order.orderedFor.lastName}`
+                            : ' '
                     }));
-                    // console.log(response.data.data);
+                    console.log(response.data.data);
                     setData(orders);
                 }
             } catch (error) {
@@ -34,7 +38,7 @@ const OurOrders = () => {
         fetchData();
     }, []);
     //  console.log(data);
-    const columns = ["orderId", "source", "orderedBy", "orderedItems", "orderDate", "orderStatus", "action"];
+    const columns = ["orderId", "source", "orderedBy", "orderedFor", "orderedItems", "orderDate", "orderStatus", "action"];
     const createNewOrder = async () => {
         navigate("/order/new")
     }

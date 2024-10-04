@@ -4,6 +4,7 @@ import Header from "../../components/PageHeader/Header";
 import axios from 'axios';
 import styles from "../../styles/pages/Users/user.module.css";
 import { useNavigate } from 'react-router-dom';
+import { safalBackend } from '../../constants/apiRoutes';
 function User() {
     const { id } = useParams();
     const [data, setData] = useState({});
@@ -12,7 +13,7 @@ function User() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/users/${id}`);
+                const response = await axios.get(`${safalBackend}/users/${id}`);
                 if (response.data.success) {
                     setData(response.data.data);
                     console.log(response.data.data);
