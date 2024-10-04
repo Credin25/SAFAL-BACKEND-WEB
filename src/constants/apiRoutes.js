@@ -1,3 +1,3 @@
-const safalBackend =  "http://localhost:5000/api/agent/add";
+const safalBackend = "http://staging.api.safal.credin.in/api";
 
-export default safalBackend
+export { safalBackend };
