@@ -7,6 +7,7 @@ import Select from '@mui/material/Select';
 import { useState, useEffect } from "react";
 import TableComponent from "./Table";
 import axios from "axios";
+import { safalBackend } from "../../constants/apiRoutes";
 function SellOrder() {
   const [age, setAge] = useState('');
   const [rows, setRows] = useState([]);
@@ -14,7 +15,7 @@ function SellOrder() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/agent/all');
+        const response = await axios.get(`${safalBackend}/sell`);
         if (response.data.success) {
           setAllData(response.data.data);
         }
@@ -26,16 +27,17 @@ function SellOrder() {
     fetchData();
   }, []);
   useEffect(() => {
-    const rows = allData.map((Agent) => {
-      console.log(Agent);
+    const rows = allData.map((SingleSale) => {
+      console.log(SingleSale);
       const obj = {
       }
-      obj.name = `${Agent.firstName} ${Agent.lastName}`;
-      obj.phone = Agent.phone;
-      obj.pannumber = Agent.panNumber;
-      obj.aadharnumber = Agent.aadharNumber;
-      obj.voterid = Agent.voterId;
-      obj.id = Agent._id;
+      obj.orderid = SingleSale.orderID;
+      obj.date = new Date(SingleSale.Date).toLocaleDateString();
+      obj.ordertable = SingleSale.orderTable;
+      obj.amount = SingleSale.amount;
+      obj.customername = SingleSale.customerName;
+      obj.customernumber = SingleSale.customerNumber;
+      obj.ordereditems = SingleSale.orderedItems.map(item => `${item.productName} (x${item.quantity})`).join(', ')
       return obj;
     });
     setRows(rows);
@@ -45,7 +47,7 @@ function SellOrder() {
     setAge(event.target.value);
   };
   const columns = [
-    "Name", "Phone", "PanNumber", "aadharNumber", "voterId", "Action"
+    "orderID", "Date", "orderTable", "amount", "customerName", "customerNumber", "orderedItems"
   ];
   return (
     <div className={styles.parentDiv}>
@@ -54,7 +56,7 @@ function SellOrder() {
         <div className={styles.topHeader}>
           <FormControl sx={
             {
-              
+              minWidth: 300,
             }
           }>
             <InputLabel id="demo-simple-select-label">Filter</InputLabel>
