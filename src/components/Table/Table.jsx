@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 // eslint-disable-next-line
-const TableComponent = ({ rows , headers}) => {
+const TableComponent = ({ rows, headers }) => {
     const StyledTableCell = styled(TableCell)(() => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: '#b9d8f7',
@@ -43,7 +43,7 @@ const TableComponent = ({ rows , headers}) => {
                     {/* eslint-disable-next-line */}
                     {rows.map((row, rowIndex) => (
                         <StyledTableRow key={rowIndex}>
-                             {/* eslint-disable-next-line */}
+                            {/* eslint-disable-next-line */}
                             {headers.map((header, colIndex) => (
                                 <StyledTableCell align="left" key={colIndex}>
                                     {/* If the header is 'Action', create buttons */}

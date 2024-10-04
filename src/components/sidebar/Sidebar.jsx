@@ -175,7 +175,7 @@ export default function Sidebar({ children }) {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-             {children}
+                {children}
             </Main>
         </Box>
     );

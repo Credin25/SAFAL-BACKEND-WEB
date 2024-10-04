@@ -1,4 +1,3 @@
-
 import styles from "../../styles/components/blueButton.module.css"
 // eslint-disable-next-line 
 const BlueButton = ({ text, onClickFunction }) => {

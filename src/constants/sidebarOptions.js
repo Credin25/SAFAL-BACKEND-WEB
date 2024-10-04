@@ -1,7 +1,9 @@
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import PersonIcon from '@mui/icons-material/Person';
 import GroupIcon from '@mui/icons-material/Group';
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
+import OutboxIcon from '@mui/icons-material/Outbox';
+import StoreIcon from '@mui/icons-material/Store';
 const sidebarOptions = [
     {
         label: "Agents",
@@ -11,28 +13,28 @@ const sidebarOptions = [
     {
         label: 'Insurance',
         path: '/',
-        icon: InboxIcon
+        icon: HealthAndSafetyIcon
     },
     {
         label: 'Our Orders',
         path: '/order',
-        icon: MailIcon
+        icon: MoveToInboxIcon
     }, {
 
         label: 'Products',
         path: '/products',
-        icon: AccountBoxIcon
+        icon: StoreIcon
     },
     {
 
         label: 'Selling Orders',
         path: '/sell',
-        icon: MailIcon
+        icon: OutboxIcon
     },
     {
         label: 'Staff',
         path: '/staff/view-all',
-        icon: MailIcon
+        icon: PersonIcon
     }
 ]
 
