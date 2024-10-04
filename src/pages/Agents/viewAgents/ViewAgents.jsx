@@ -1,5 +1,5 @@
-import GreyButton from "../../../components/Buttons/GreyButton"
-import BlueButton from "../../../components/Buttons/BlueButton"
+// import GreyButton from "../../../components/Buttons/GreyButton"
+// import BlueButton from "../../../components/Buttons/BlueButton"
 import Header from "../../../components/PageHeader/Header";
 import styles from "../../../styles/pages/Agent/viewAgent.module.css";
 import TableComponent from "./Table";
@@ -9,6 +9,7 @@ import axios from "axios";
 import EditButton from "../../../components/Buttons/EditButton";
 import FullWidthTextField from "../../../components/SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
+import { safalBackend } from "../../../constants/apiRoutes";
 function ViewAgents() {
   const navigate = useNavigate();
   const [allData, setAllData] = useState([]);
@@ -16,7 +17,7 @@ function ViewAgents() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/agent/all');
+        const response = await axios.get(`${safalBackend}/agent/all`);
         if (response.data.success) {
           setAllData(response.data.data);
         }
@@ -49,10 +50,10 @@ function ViewAgents() {
   const serachFunction = async (searchStr) => {
 
     try {
-      const response = await axios.post('http://localhost:5000/api/agent/search', {
+      const response = await axios.post(`${safalBackend}/agent/search`, {
         "searchQuery": searchStr
       });
-      if (response.data.statusCode === 200) {
+      if (response.data.success) {
         setAllData(response.data.data);
       }
     } catch (error) {
@@ -76,14 +77,14 @@ function ViewAgents() {
         </div>
 
         <TableComponent rows={rows} headers={columns} />
-        <div className={styles.buttonDiv}>
+        {/* <div className={styles.buttonDiv}>
           <GreyButton text="Back" onClickFunction={() => { }} />
           <div className={styles.pageDiv}>
             <BlueButton text="Previous" onClickFunction={() => { }} />
             <span className={styles.pageNo}>1</span>
             <BlueButton text="Next" onClickFunction={() => { }} />
           </div>
-        </div>
+        </div> */}
 
       </div>
     </div>

@@ -10,9 +10,11 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import { toast } from "react-toastify";
-
+import { safalBackend } from '../../../constants/apiRoutes';
+import { useNavigate } from 'react-router-dom';
 function EditAgent() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [initialData, setInitialData] = useState({});
     // eslint-disable-next-line
     const [gender, setGender] = useState('');
@@ -23,9 +25,8 @@ function EditAgent() {
             return;
         }
         try {
-            const response = await axios.get(`http://localhost:5000/api/agent/${id}`);
+            const response = await axios.get(`${safalBackend}/agent/${id}`);
             if (response.data.success) {
-                console.log(response.data.data);
                 setInitialData(response.data.data);
             }
         } catch (error) {
@@ -59,10 +60,11 @@ function EditAgent() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:5000/api/agent/${id}`, initialData);
+            const response = await axios.put(`${safalBackend}/agent/${id}`, initialData);
             if (response.data.success) {
                 toast.success("Agent updated successfully!");
                 setInitialData(response.data.data);
+                navigate('/agents')
             } else {
                 toast.error("Failed to update agent.");
             }

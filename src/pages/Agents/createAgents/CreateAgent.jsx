@@ -9,7 +9,10 @@ import Select from '@mui/material/Select';
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { safalBackend } from "../../../constants/apiRoutes";
+import { useNavigate } from "react-router-dom";
 const CreateAgent = () => {
+    const navigate = useNavigate();
     const [gender, setGender] = useState('');
     const [data, setData] = useState({
         firstName: "",
@@ -49,12 +52,11 @@ const CreateAgent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(data);
         try {
-            const response = await axios.post('http://localhost:5000/api/agent/add', data);
-            if (response.data.statusCode === 200) {
-                // console.log('Agent created successfully:', response.data);
+            const response = await axios.post(`${safalBackend}/agent/add`, data);
+            if (response.data.success) {
                 toast.success(response.data.message);
+                navigate('/agents')
             }
 
             setData({

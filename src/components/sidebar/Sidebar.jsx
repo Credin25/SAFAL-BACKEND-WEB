@@ -99,7 +99,6 @@ export default function Sidebar({ children }) {
         localStorage.clear();
         navigate('/login');
     }
-    console.log(children);
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
