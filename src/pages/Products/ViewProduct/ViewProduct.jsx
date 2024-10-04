@@ -4,7 +4,7 @@ import Header from "../../../components/PageHeader/Header";
 import axios from "axios";
 import styles from "../../../styles/pages/Products/viewProduct.module.css";
 import { toast } from "react-toastify";
-
+import { safalBackend } from "../../../constants/apiRoutes";
 export default function ViewProduct() {
     const { id } = useParams();
     const [Product, setProduct] = useState({});
@@ -21,7 +21,7 @@ export default function ViewProduct() {
 
     const fetchInitialData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/product/${id}`);
+            const response = await axios.get(`${safalBackend}/product/${id}`);
             if (response.data.success) {
                 setProduct(response.data.data);
                 setFormData({
@@ -73,7 +73,7 @@ export default function ViewProduct() {
 
     const handleSave = async () => {
         try {
-            const response = await axios.patch(`http://localhost:5000/api/product/edit/${id}`, {
+            const response = await axios.patch(`${safalBackend}/product/edit/${id}`, {
                 description: formData.description,
                 price: {
                     safalAppPrice: formData.safalAppPrice,

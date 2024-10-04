@@ -6,6 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
+import { safalBackend } from '../../../constants/apiRoutes';
 function AddNewProduct() {
     const navigate = useNavigate();
     const [data, setFormData] = useState({
@@ -37,9 +38,8 @@ function AddNewProduct() {
         }
         // console.log(rqstData);
         try {
-            const res = await axios.post("http://localhost:5000/api/product", rqstData);
+            const res = await axios.post(`${safalBackend}/product`, rqstData);
             if (res.data.success) {
-                console.log(res.data)
                 toast.success(res.data.message);
                 navigate("/products")
             }

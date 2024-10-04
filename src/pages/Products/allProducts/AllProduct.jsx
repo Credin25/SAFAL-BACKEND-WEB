@@ -5,14 +5,14 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import EditButton from '../../../components/Buttons/EditButton';
 import { useNavigate } from 'react-router-dom';
+import { safalBackend } from '../../../constants/apiRoutes';
 function AllProduct() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const fetchInitialData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/product');
+            const response = await axios.get(`${safalBackend}/product`);
             if (response.data.success) {
-                console.log(response.data.data.products);
                 setData(response.data.data.products);
             }
         } catch (error) {
