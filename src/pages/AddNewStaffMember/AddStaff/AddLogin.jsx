@@ -5,10 +5,12 @@ import BlueButton from "../../../components/Buttons/BlueButton";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { safalBackend } from '../../../constants/apiRoutes';
 
 const AddNewLogin = () => {
+    const LoggedInUser = localStorage.getItem('email');
     const [data, setData] = useState({
-        name: "", email: "", staffId: "", password: "", mobile: "", created_by: "", branch: "", pan: "",
+        name: "", email: "", staffId: "", password: "", mobile: "", created_by: LoggedInUser, branch: "", pan: "", 
         address: {
             pinCode: "", state: "", district: "", city: "", addressLine1: ""
         }
@@ -26,13 +28,10 @@ const AddNewLogin = () => {
             address: { ...data.address, [name]: value }
         });
     };
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(data);
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/register', { ...data });
+            const response = await axios.post(`${safalBackend}/auth/register`, { ...data });
             if (response.data.success) {
                 toast.success(response.data.message);
                 setData({

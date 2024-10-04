@@ -6,6 +6,7 @@ import axios from "axios";
 import FullWidthTextField from "../../../components/SearchBar/SearchBar";
 import EditButton from "../../../components/Buttons/EditButton";
 import { useNavigate } from "react-router-dom";
+import { safalBackend } from "../../../constants/apiRoutes";
 function ViewStaff() {
     const navigate = useNavigate();
     const [allData, setAllData] = useState([]);
@@ -13,7 +14,7 @@ function ViewStaff() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/staff');
+                const response = await axios.get(`${safalBackend}/staff`);
                 if (response.data.success) {
                     setAllData(response.data.data);
                 }
@@ -48,7 +49,7 @@ function ViewStaff() {
     const serachFunction = async (searchStr) => {
 
         try {
-            const response = await axios.post('http://localhost:5000/api/staff/search', {
+            const response = await axios.post(`${safalBackend}/staff/search`, {
                 "searchQuery": searchStr
             });
             if (response.data.statusCode === 200) {
