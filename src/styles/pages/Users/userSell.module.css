@@ -1,0 +1,141 @@
+.parentDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    background-color: rgb(196, 195, 195);
+    padding: 20px;
+    border-radius: 10px;
+}
+.content{
+    width: 100%;
+}
+
+.table {
+    max-height: 500px;
+    width: 90%;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    /* Rounded corners for table */
+    background-color: white;
+    /* Table background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for better visibility */
+}
+
+.tablediv {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    /* Removes gaps between cells */
+    margin: 20px 0;
+}
+
+.header {
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    background-color: #f2f2f2;
+    /* Light gray background for the headers */
+    color: #333;
+    border-bottom: 2px solid #ccc;
+    /* Thicker border at the bottom of the header */
+    position: sticky;
+    /* Sticky header on scroll */
+    top: 0;
+}
+
+.row {
+    padding: 12px;
+    text-align: left;
+    background-color: white;
+    /* Keeps table rows with white background */
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.row:hover {
+    background-color: #f9f9f9;
+    /* Light background on hover */
+}
+
+td {
+    padding: 10px 8px;
+    vertical-align: middle;
+    word-wrap: break-word;
+    /* Ensures text wraps correctly */
+}
+
+tr:nth-child(even) .row {
+    background-color: #f6f6f6;
+    /* Alternating row colors for better readability */
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    /* Lighter hover effect for the entire row */
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Scrollbar for the table */
+.table::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.table::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.table::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.buttonDiv{
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    /* background-color: green; */
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.pageDiv{
+    display: flex;
+    gap: 10px;
+    
+}
+.pageNo {
+    font-size: 20px;
+    font-weight: 400;
+    color: rgb(85, 85, 85);
+    border: 1px solid rgb(85, 85, 85);
+    padding: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

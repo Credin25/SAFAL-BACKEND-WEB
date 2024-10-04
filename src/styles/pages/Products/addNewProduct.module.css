@@ -1,0 +1,45 @@
+.parentDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    background-color: rgb(224, 224, 224);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: 20px;
+    padding: 20px 10px;
+    margin-bottom: 10px;
+}
+
+.Formrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    /* background-color: darkcyan; */
+}
+
+.ButtonRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: salmon; */
+}
+.textArea{
+    width: 100%;
+}

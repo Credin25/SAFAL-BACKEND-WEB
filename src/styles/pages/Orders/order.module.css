@@ -1,0 +1,177 @@
+.parentDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    padding: 20px; /* Added padding for overall spacing */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    background-color: rgb(196, 195, 195);
+    padding: 20px;
+    border-radius: 10px; /* Added border radius for smoother edges */
+}
+
+
+.leftdiv, .rightdiv {
+    background-color: rgb(191, 217, 241);
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 20px; /* Added margin for better spacing */
+}
+
+.leftdiv:hover, .rightdiv:hover {
+    transform: scale(1.02);
+}
+
+.userDetails {
+    width: 90%;
+    background-color: rgb(191, 217, 241);
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Aligning items vertically */
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for a subtle elevation */
+}
+
+.userDetails:hover {
+    background-color: rgb(173, 207, 242);
+}
+
+.orderDetails {
+    width: 90%;
+    background-color: rgb(191, 217, 241);
+    display: flex;
+    justify-content: space-between;
+    margin: 40px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling the ordered items list */
+.orderDetails ul {
+    list-style-type: none; /* Remove default list bullets */
+    padding: 0; /* Remove default padding */
+    margin-top: 20px; /* Add spacing above the list */
+    width: 100%; /* Full width to make use of the space */
+    border-radius: 10px; /* Rounded corners for a card-like appearance */
+    background-color: #f0f8ff; /* Light background for the entire list */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.orderDetails li {
+    padding: 5px 10px; /* Add padding for space between text and borders */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Light bottom border for separation */
+    font-size: 16px; /* Slightly larger font for better readability */
+    display: flex; /* Flexbox for layout control */
+    justify-content: space-between; /* Space between product name and quantity */
+    align-items: center; /* Vertically center the content */
+    transition: background-color 0.2s ease-in-out; /* Smooth hover transition */
+}
+
+/* Remove the bottom border for the last list item */
+.orderDetails li:last-child {
+    border-bottom: none;
+}
+
+/* Add a hover effect to highlight the item on hover */
+.orderDetails li:hover {
+    background-color: #e6f2ff; /* Light blue background on hover */
+}
+
+/* Styling for product name */
+.orderDetails li p:first-child {
+    font-weight: 500; /* Semi-bold for product name */
+    color: #333; /* Darker text for better contrast */
+}
+
+/* Styling for quantity text */
+.orderDetails li p:last-child {
+    font-weight: 400;
+    color: #555; /* Slightly lighter text for quantity */
+    padding-left: 10px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .orderDetails ul {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .orderDetails li {
+        flex-direction: column; /* Stack items vertically on small screens */
+        align-items: flex-start; /* Align items to the left */
+        padding: 10px;
+    }
+
+    .orderDetails li p {
+        margin: 5px 0; /* Add margin between product and quantity */
+    }
+}
+
+
+/* Styling the select dropdown */
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    appearance: none; /* Remove default arrow for a custom look */
+    outline: none;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+select:hover {
+    border-color: #007BFF; /* Change border color on hover */
+}
+
+select:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue glow on focus */
+}
+
+/* Custom arrow for the select dropdown */
+select::after {
+    content: "▼"; /* Add a down arrow */
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
+}
+
+/* Media query for mobile responsiveness */
+@media (max-width: 768px) {
+    .leftdiv, .rightdiv {
+        width: 90%; /* Full width on smaller screens */
+    }
+
+    .orderDetails {
+        width: 100%; /* Make the orderDetails section responsive */
+    }
+
+    select {
+        font-size: 14px;
+    }
+}

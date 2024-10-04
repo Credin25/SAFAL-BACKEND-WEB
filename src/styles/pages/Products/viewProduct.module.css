@@ -1,0 +1,209 @@
+.parentDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    background-color: rgb(196, 195, 195);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Styling for top section controls */
+.topControls {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 10px;
+}
+
+.details {
+    width: 90%;
+    max-width: 800px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.description {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+.info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mrp {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.prices {
+    margin-bottom: 20px;
+}
+
+.prices h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.prices p {
+    margin: 5px 0;
+    color: #444;
+}
+
+/* Editable form styling */
+.editForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.label {
+    font-weight: bold;
+    color: #333;
+}
+
+.inputField {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.saveButton {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.saveButton:hover {
+    background-color: #45a049;
+}
+
+/* Edit button styling */
+.editButton {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editButton:hover {
+    background-color: #0056b3;
+}
+
+/* Slideshow container */
+.imageContainer {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+.imageWrapper {
+    display: none;
+    position: relative;
+    width: 100%;
+}
+
+
+
+.slideshowContainer {
+    /* background-color: tomato; */
+    display: flex;
+    justify-content: center;
+}
+
+/* Slide fade animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.4;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Dots for image navigation */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+
+.numbertext {
+    color: #0e0e0e;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 5;
+    right: 50%;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.473);
+}
+
+.imageContainer {
+    position: relative;
+    max-width: 100%;
+}
+
+.imageWrapper {
+    display: none;
+    width: 100%;
+    margin: auto;
+    position: relative;
+    max-width: 500px;
+    height: auto;
+    left: 0;
+}
+
+.imageWrapper.active {
+    display: block;
+    margin: auto;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+}

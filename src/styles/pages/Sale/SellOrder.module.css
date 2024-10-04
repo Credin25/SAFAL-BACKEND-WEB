@@ -1,0 +1,25 @@
+.parentDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    background-color: rgb(196, 195, 195);
+    padding: 20px;
+}
+
+.topHeader{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
