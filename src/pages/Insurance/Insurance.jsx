@@ -4,13 +4,14 @@ import TableComponent from "./Table";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FullWidthTextField from "../../components/SearchBar/SearchBar";
+import { safalBackend } from "../../constants/apiRoutes";
 const Insurance = () => {
     const [allData, setAllData] = useState([]);
     const [rows, setRows] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/insurance/all-insurance');
+                const response = await axios.get(`${safalBackend}/insurance/all-insurance`);
                 if (response.data.success) {
                     setAllData(response.data.data);
                 }
@@ -21,7 +22,6 @@ const Insurance = () => {
 
         fetchData();
     }, []);
-    console.log(allData);
     useEffect(() => {
         const rows = allData.map((Agent) => {
             const obj = {
@@ -34,7 +34,6 @@ const Insurance = () => {
         });
         setRows(rows);
     }, [allData])
-    console.log(rows);
     const columns = [
         "Name", "InsuranceNumber", "Mobile", "Action"
     ];
@@ -42,23 +41,23 @@ const Insurance = () => {
     const serachFunction = async (searchStr) => {
 
         try {
-          const response = await axios.post('http://localhost:5000/api/insurance/search', {
-            "searchQuery": searchStr
-          });
-          if (response.data.statusCode === 200) {
-            setAllData(response.data.data);
-          }
+            const response = await axios.post(`${safalBackend}/insurance/search`, {
+                "searchQuery": searchStr
+            });
+            if (response.data.statusCode === 200) {
+                setAllData(response.data.data);
+            }
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      }
+    }
 
 
     return (
         <div className={styles.parentDiv}>
             <Header heading="Insurance" />
             <div className={styles.container}>
-            <FullWidthTextField placeholder="Search By Phone Number / Insurance Number / Aadhar Number / Name" onSearch={serachFunction} />
+                <FullWidthTextField placeholder="Search By Phone Number / Insurance Number / Aadhar Number / Name" onSearch={serachFunction} />
                 <TableComponent rows={rows} headers={columns} />
             </div>
         </div>

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from "../../styles/pages/Insurance/singleinsurance.module.css";
 import Header from '../../components/PageHeader/Header';
-
+import { safalBackend } from '../../constants/apiRoutes';
 function ViewSingleInsurance() {
     const { id } = useParams();
     const [insuranceInfo, setInsuranceInfo] = useState(null);
@@ -11,7 +11,7 @@ function ViewSingleInsurance() {
 
     const fetchInitialData = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/insurance/${id}`);
+            const res = await axios.get(`${safalBackend}/insurance/${id}`);
             if (res.data.success) {
                 setInsuranceInfo(res.data.data);
                 setLoading(false);

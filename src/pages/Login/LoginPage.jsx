@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from '../../styles/pages/Login/login.module.css';
 import logo from '../../../public/vite.svg';
 import axios from 'axios';
+import { safalBackend } from '../../constants/apiRoutes';
    {/* eslint-disable-next-line */}
 function LoginPage({ onLoginSuccess }) {
     const [email, setEmail] = useState('');
@@ -16,13 +17,14 @@ function LoginPage({ onLoginSuccess }) {
             return;
         }
 
-        const responce = await axios.post("http://localhost:5000/api/auth/login", {
+        const responce = await axios.post(`${safalBackend}/auth/login`, {
             email, password
         });
         if (responce.data.success) {
             const { accessToken, refreshToken } = responce.data.data;
             localStorage.setItem('accessToken', accessToken); 
             localStorage.setItem('refreshToken', refreshToken); 
+            localStorage.setItem('email', email); 
             onLoginSuccess();
         }
         setEmail('');
