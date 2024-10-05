@@ -7,7 +7,6 @@ import { Modal, Checkbox, TextField, Button } from '@mui/material';
 import { safalBackend } from '../../../constants/apiRoutes';
 function AddNewOrder() {
     const [allAgents, setAllAgents] = useState([]);
-    console.log(allAgents);
     const [agent, setAgent] = useState('');
     const [allProducts, setAllProducts] = useState([]);
     const [selectedProducts, setSelectedProducts] = useState([]);
@@ -20,6 +19,7 @@ function AddNewOrder() {
         city: '',
         addressLine1: '',
     });
+    const email = localStorage.getItem('email')
 
     const fetchAllAgents = async () => {
         try {
@@ -92,10 +92,10 @@ function AddNewOrder() {
                 productId: prod._id,
                 quantity: prod.quantity
             })),
-            source: "STAFF (SAFAL BACKEND)",
+            source: "STAFF",
             deliveryAddress: {},
             deliveryContactNumber: 0, // This will be updated below
-            orderedBy: 7983268080, // Assuming email is stored in localStorage
+            orderedBy: email, // Assuming email is stored in localStorage
             amount: totalAmount,
         };
         const selectedAgent = allAgents.find(ag => ag._id === agent);

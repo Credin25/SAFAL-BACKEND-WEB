@@ -15,8 +15,7 @@ function Order() {
             const response = await axios.get(`${safalBackend}/order/${id}`);
             if (response.data.success) {
                 setData(response.data.data);
-                setStatus(response.data.data.order.orderStatus); // Initialize status
-                console.log(response.data.data);
+                setStatus(response.data.data.order.orderStatus);
             }
         } catch (error) {
             console.error(error);
@@ -28,12 +27,11 @@ function Order() {
         setStatus(newStatus);
         try {
             const response = await axios.patch(`${safalBackend}/order/${id}`, {
-                orderStatus: newStatus, // Send the new status to the backend
+                orderStatus: newStatus, 
             });
-            console.log(response.data)
             if (response.data.success) {
                 toast.success(response.data.message);
-                fetchData(); // Fetch data again to update the component
+                fetchData(); 
             }
         } catch (error) {
             console.error("Error updating order status:", error);

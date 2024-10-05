@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from '../../styles/pages/Login/login.module.css';
-import logo from '../../../public/vite.svg';
+import logo from '../../../public/favicon.ico';
 import axios from 'axios';
 import { safalBackend } from '../../constants/apiRoutes';
    {/* eslint-disable-next-line */}
