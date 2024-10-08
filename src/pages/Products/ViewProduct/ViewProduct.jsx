@@ -52,7 +52,7 @@ export default function ViewProduct() {
 
         try {
             const res = await axios.patch(
-                `http://localhost:5000/api/product/${id}`,
+                `:${safalBackend}/product/${id}`,
                 form,
                 {
                     headers: {
@@ -170,7 +170,7 @@ export default function ViewProduct() {
                             <p className={styles.description}>{Product?.description}</p>
                             <div className={styles.info}>
                                 <p className={styles.mrp}>MRP: ₹{Product?.MRP}</p>
-                                <p className={styles.mrp}>Stock Available: ₹{Product?.stockAvailable}</p>
+                                <p className={styles.mrp}>Stock Available: {Product?.stockAvailable}</p>
                             </div>
                             <div className={styles.prices}>
                                 <h3>Selling Prices:</h3>

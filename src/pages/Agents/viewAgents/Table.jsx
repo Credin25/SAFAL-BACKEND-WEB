@@ -11,6 +11,7 @@ import EditButton from '../../../components/Buttons/EditButton';
 import DeleteButton from '../../../components/Buttons/DeleteButton';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { safalBackend } from '../../../constants/apiRoutes';
 // eslint-disable-next-line
 const TableComponent = ({ rows, headers }) => {
     const StyledTableCell = styled(TableCell)(() => ({
@@ -38,7 +39,7 @@ const TableComponent = ({ rows, headers }) => {
        return navigate(`/agent/${id}`)
     }
     const handleDelete =async (id) => {
-      const res = await axios.delete(`http://localhost:5000/api/agent/${id}`);
+      const res = await axios.delete(`${safalBackend}/agent/${id}`);
       if(res.data.success){
         window.location.reload();
       }
