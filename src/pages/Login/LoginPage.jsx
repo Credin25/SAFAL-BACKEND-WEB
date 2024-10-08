@@ -20,6 +20,7 @@ function LoginPage({ onLoginSuccess }) {
         const responce = await axios.post(`${safalBackend}/auth/login`, {
             email, password
         });
+        console.log(responce.data)
         if (responce.data.success) {
             const { accessToken, refreshToken } = responce.data.data;
             localStorage.setItem('accessToken', accessToken); 
