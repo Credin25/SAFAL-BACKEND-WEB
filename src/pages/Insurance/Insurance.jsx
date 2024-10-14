@@ -5,18 +5,23 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import FullWidthTextField from "../../components/SearchBar/SearchBar";
 import { safalBackend } from "../../constants/apiRoutes";
+import { toast } from "react-toastify";
 const Insurance = () => {
     const [allData, setAllData] = useState([]);
     const [rows, setRows] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${safalBackend}/insurance/all-insurance`);
+                const response = await axios.get(`${safalBackend}/insurance/all-insurance`, { withCredentials: true });
                 if (response.data.success) {
                     setAllData(response.data.data);
                 }
             } catch (error) {
-                console.error(error);
+                if (error.response.data) {
+                    toast.error(error.response.data.message);
+                } else {
+                    toast.error("Error while fetching insurance. Please try again later.");
+                }
             }
         }
 

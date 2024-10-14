@@ -17,7 +17,7 @@ function ViewAgents() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${safalBackend}/agent/all`);
+        const response = await axios.get(`${safalBackend}/agent/all`, {withCredentials: true});
         if (response.data.success) {
           setAllData(response.data.data);
         }
@@ -52,7 +52,7 @@ function ViewAgents() {
     try {
       const response = await axios.post(`${safalBackend}/agent/search`, {
         "searchQuery": searchStr
-      });
+      }, { withCredentials: true });
       if (response.data.success) {
         setAllData(response.data.data);
       }
