@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import EditButton from '../../../components/Buttons/EditButton';
 import { useNavigate } from 'react-router-dom';
 import { safalBackend } from '../../../constants/apiRoutes';
+import { toast } from 'react-toastify';
 function AllProduct() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
@@ -16,7 +17,11 @@ function AllProduct() {
                 setData(response.data.data.products);
             }
         } catch (error) {
-            console.error(error);
+            if (error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Error while fetching products. Please try again later.");
+            }
         }
     }
     useEffect(() => {

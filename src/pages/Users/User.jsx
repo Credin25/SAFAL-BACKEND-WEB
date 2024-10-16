@@ -5,6 +5,7 @@ import axios from 'axios';
 import styles from "../../styles/pages/Users/user.module.css";
 import { useNavigate } from 'react-router-dom';
 import { safalBackend } from '../../constants/apiRoutes';
+import { toast } from 'react-toastify';
 function User() {
     const { id } = useParams();
     const [data, setData] = useState({});
@@ -19,7 +20,11 @@ function User() {
                     console.log(response.data.data);
                 }
             } catch (error) {
-                console.error(error);
+                if(error.response?.data?.message) {
+                    toast.error(error.response.data.message);
+                } else {
+                    toast.error("Error while fetching user. Please try again later");
+                }
             }
         };
 

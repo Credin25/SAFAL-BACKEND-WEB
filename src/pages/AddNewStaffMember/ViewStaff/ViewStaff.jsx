@@ -7,6 +7,7 @@ import FullWidthTextField from "../../../components/SearchBar/SearchBar";
 import EditButton from "../../../components/Buttons/EditButton";
 import { useNavigate } from "react-router-dom";
 import { safalBackend } from "../../../constants/apiRoutes";
+import { toast } from "react-toastify";
 function ViewStaff() {
     const navigate = useNavigate();
     const [allData, setAllData] = useState([]);
@@ -19,7 +20,11 @@ function ViewStaff() {
                     setAllData(response.data.data);
                 }
             } catch (error) {
-                console.error(error);
+               if (error.response?.data?.message) {
+                   toast.error(error.response.data.message);
+               } else {
+                   toast.error("Error while fetching staff. Please try again later");
+               }
             }
         }
 
@@ -56,7 +61,11 @@ function ViewStaff() {
                 setAllData(response.data.data);
             }
         } catch (error) {
-            console.log(error);
+            if(error.response?.data?.message){
+                toast.error(error.response.data.message);
+            }else{
+                toast.error("Error while fetching staff. Please try again later");
+            }
         }
     };
     const handleAddNewStaff = async () => {

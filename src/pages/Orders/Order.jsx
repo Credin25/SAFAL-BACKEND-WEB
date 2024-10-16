@@ -18,7 +18,11 @@ function Order() {
                 setStatus(response.data.data.order.orderStatus);
             }
         } catch (error) {
-            console.error(error);
+           if(error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Error while fetching order. Please try again later.");
+            }
         }
     };
 
@@ -34,13 +38,18 @@ function Order() {
                 fetchData(); 
             }
         } catch (error) {
-            console.error("Error updating order status:", error);
+            if(error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Error while updating order. Please try again later.");
+            }
         }
     };
 
 
     useEffect(() => {
         fetchData();
+        // eslint-disable-next-line
     }, [id]);
 
     const handleUserClick = () => {

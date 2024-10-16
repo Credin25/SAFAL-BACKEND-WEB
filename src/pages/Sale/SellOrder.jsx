@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import TableComponent from "./Table";
 import axios from "axios";
 import { safalBackend } from "../../constants/apiRoutes";
+import { toast } from "react-toastify";
 function SellOrder() {
   const [age, setAge] = useState('');
   const [rows, setRows] = useState([]);
@@ -20,7 +21,11 @@ function SellOrder() {
           setAllData(response.data.data);
         }
       } catch (error) {
-        console.error(error);
+        if (error.response?.data?.message) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error("Error while fetching orders. Please try again later");
+        }
       }
     }
 
