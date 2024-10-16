@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from "../../styles/pages/Insurance/singleinsurance.module.css";
 import Header from '../../components/PageHeader/Header';
 import { safalBackend } from '../../constants/apiRoutes';
+import { toast } from 'react-toastify';
 function ViewSingleInsurance() {
     const { id } = useParams();
     const [insuranceInfo, setInsuranceInfo] = useState(null);
@@ -17,12 +18,18 @@ function ViewSingleInsurance() {
                 setLoading(false);
             }
         } catch (error) {
-            console.error('Error fetching insurance data:', error);
+            if(error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('Error while fetching insurance data. Please try again later');
+            }
+          
         }
     };
 
     useEffect(() => {
         fetchInitialData();
+        // eslint-disable-next-line
     }, [id]);
 
     if (loading) {
