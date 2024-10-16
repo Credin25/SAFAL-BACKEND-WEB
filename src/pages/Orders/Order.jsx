@@ -41,6 +41,7 @@ function Order() {
 
     useEffect(() => {
         fetchData();
+        // eslint-disable-next-line
     }, [id]);
 
     const handleUserClick = () => {

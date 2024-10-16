@@ -94,6 +94,7 @@ export default function ViewProduct() {
 
     useEffect(() => {
         fetchInitialData();
+        // eslint-disable-next-line
     }, [id]);
 
     useEffect(() => {

@@ -23,6 +23,7 @@ function ViewSingleInsurance() {
 
     useEffect(() => {
         fetchInitialData();
+        // eslint-disable-next-line
     }, [id]);
 
     if (loading) {

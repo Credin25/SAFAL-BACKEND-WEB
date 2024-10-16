@@ -1,20 +1,12 @@
-import { useParams } from "react-router-dom";
+
 import Header from "../../components/PageHeader/Header";
 import styles from "../../styles/pages/Users/userSell.module.css";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 import FullWidthTextField from "../../components/SearchBar/SearchBar";
 import GreyButton from "../../components/Buttons/GreyButton";
 import BlueButton from "../../components/Buttons/BlueButton";
 function UserSellData() {
-    const { id } = useParams();
-    const [data, setData] = useState([]);
     const fetchInitialData = async () => {
-        try {
-            const res = await axios.get("")
-        } catch (err) {
-            console.log(err);
-        }
     };
 
     useEffect(() => {
