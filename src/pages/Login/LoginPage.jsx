@@ -16,14 +16,14 @@ function LoginPage({ onLoginSuccess }) {
             setError('Email and password are required');
             return;
         }
-
         const responce = await axios.post(`${safalBackend}/auth/login`, {
             email, password
+        },{
+            withCredentials: true
         });
+        console.log(responce.data)
         if (responce.data.success) {
-            const { accessToken, refreshToken } = responce.data.data;
-            localStorage.setItem('accessToken', accessToken); 
-            localStorage.setItem('refreshToken', refreshToken); 
+            const { email } = responce.data.data;
             localStorage.setItem('email', email); 
             onLoginSuccess();
         }

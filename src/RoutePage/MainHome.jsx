@@ -36,7 +36,7 @@ const MainHome = () => {
     return (
         <Routes>
             <Route path="/login" element={<LoginPage onLoginSuccess={() => {
-                forceUpdate({});
+                // forceUpdate({});
                 navigate('/');
             }} />} />
             <Route element={<AuthenticatedLayout />}>

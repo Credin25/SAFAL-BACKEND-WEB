@@ -5,7 +5,10 @@ import { useEffect, useState } from "react";
 import BlueButton from "../../../components/Buttons/BlueButton";
 import { Modal, Checkbox, TextField, Button } from '@mui/material';
 import { safalBackend } from '../../../constants/apiRoutes';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 function AddNewOrder() {
+    const navigate = useNavigate();
     const [allAgents, setAllAgents] = useState([]);
     const [agent, setAgent] = useState('');
     const [allProducts, setAllProducts] = useState([]);
@@ -49,7 +52,7 @@ function AddNewOrder() {
     }, []);
 
     const handleAgentChange = (e) => {
-        setAgent(e.target.value); // Set the selected agent ID
+        setAgent(e.target.value); 
     };
 
     const handleProductChange = (e) => {
@@ -83,7 +86,7 @@ function AddNewOrder() {
     };
 
     const handleOrderButton = async () => {
-        // Calculate the total price of selected products (assuming SafalBackend price is available in the product object)
+        // Calculate the total price of selected products 
         const totalAmount = selectedProducts.reduce((acc, prod) => acc + (prod.price.safalBackendPrice * prod.quantity), 0);
 
         let body = {
@@ -94,13 +97,12 @@ function AddNewOrder() {
             })),
             source: "STAFF",
             deliveryAddress: {},
-            deliveryContactNumber: 0, // This will be updated below
-            orderedBy: email, // Assuming email is stored in localStorage
+            deliveryContactNumber: 0, 
+            orderedBy: email, 
             amount: totalAmount,
         };
         const selectedAgent = allAgents.find(ag => ag._id === agent);
         if (useDefaultAddress) {
-            // Find the selected agent's default address and phone number
             if (selectedAgent && selectedAgent.address) {
                 body.deliveryAddress = {
                     pincode: selectedAgent.address.pinCode || '',
@@ -109,23 +111,21 @@ function AddNewOrder() {
                     city: selectedAgent.address.city || '',
                     addressLine1: selectedAgent.address.addressLine1 || '',
                 };
-   
+
             } else {
                 console.error("No address found for the selected agent");
             }
         } else {
-            // Use the new address provided by the user
             body.deliveryAddress = newAddress;
-            // You can set the delivery contact number here if required
         }
         body.deliveryContactNumber = parseInt(selectedAgent.phone); // Agent's phone number
 
         try {
-            console.log(body); // You can remove this after verifying the body content
             const response = await axios.post(`${safalBackend}/order`, body);
             if (response.data.success) {
-                console.log("Order placed successfully");
-                setIsModalOpen(false); // Close the modal after placing the order
+                toast.success(response.data.message);
+                setIsModalOpen(false);
+                navigate("/order") 
             } else {
                 console.error("Failed to place order");
             }
