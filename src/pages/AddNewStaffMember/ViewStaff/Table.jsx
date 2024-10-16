@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { toast } from 'react-toastify';
 import EditButton from '../../../components/Buttons/EditButton';
 import DeleteButton from '../../../components/Buttons/DeleteButton';
 import axios from 'axios';
@@ -36,13 +37,23 @@ const TableComponent = ({ rows, headers }) => {
     const navigate = useNavigate();
 
     const handleEdit = (id) => {
-       return navigate(`/agent/${id}`)
+        return navigate(`/agent/${id}`)
     }
-    const handleDelete =async (id) => {
-      const res = await axios.delete(`${safalBackend}/agent/${id}`);
-      if(res.data.success){
-        window.location.reload();
-      }
+    const handleDelete = async (id) => {
+        try {
+            const res = await axios.delete(`${safalBackend}/agent/${id}`);
+            if (res.data.success) {
+                window.location.reload();
+            }
+        } catch (error) {
+            if (error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Error while deleting agent. Please try again later.");
+            }
+        }
+
+
     }
     return (
         <TableContainer component={Paper}>
@@ -66,7 +77,7 @@ const TableComponent = ({ rows, headers }) => {
                                     {header.toLowerCase() === 'action' ? (
                                         <>
                                             <EditButton text="Edit" onClickFunction={() => handleEdit(row?.id)} />
-                                            <DeleteButton text="Delete" onClickFunction={() => {handleDelete(row?.id) }} />
+                                            <DeleteButton text="Delete" onClickFunction={() => { handleDelete(row?.id) }} />
                                         </>
                                     ) : (
                                         row[header.toLowerCase()]

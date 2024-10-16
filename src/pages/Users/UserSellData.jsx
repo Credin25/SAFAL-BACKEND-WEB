@@ -1,7 +1,7 @@
 
 import Header from "../../components/PageHeader/Header";
 import styles from "../../styles/pages/Users/userSell.module.css";
-import { useEffect } from "react";
+import { useEffect} from "react";
 import FullWidthTextField from "../../components/SearchBar/SearchBar";
 import GreyButton from "../../components/Buttons/GreyButton";
 import BlueButton from "../../components/Buttons/BlueButton";

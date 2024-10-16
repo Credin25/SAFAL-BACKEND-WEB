@@ -12,6 +12,7 @@ import DeleteButton from '../../components/Buttons/DeleteButton';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { safalBackend } from '../../constants/apiRoutes';
+import { toast } from 'react-toastify';
 // eslint-disable-next-line
 const TableComponent = ({ rows, headers }) => {
     const StyledTableCell = styled(TableCell)(() => ({
@@ -39,9 +40,17 @@ const TableComponent = ({ rows, headers }) => {
        return navigate(`/agent/${id}`)
     }
     const handleDelete =async (id) => {
-      const res = await axios.delete(`${safalBackend}/agent/${id}`);
+      try{
+        const res = await axios.delete(`${safalBackend}/agent/${id}`);
       if(res.data.success){
         window.location.reload();
+      }
+      }catch(error){
+        if(error.response?.data?.message){
+          toast.error(error.response.data.message);
+        }else{
+          toast.error('Error while deleting. Please try again later');
+        }
       }
     }
     return (

@@ -53,7 +53,11 @@ const Insurance = () => {
                 setAllData(response.data.data);
             }
         } catch (error) {
-            console.log(error);
+            if (error.response.data) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Error while searching insurance. Please try again later.");
+            }
         }
     }
 

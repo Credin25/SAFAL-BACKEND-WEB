@@ -31,10 +31,13 @@ export default function ViewProduct() {
                     safalBackendPrice: response.data.data.price.safalBackendPrice,
                     stockAvailable: response.data.data.stockAvailable
                 });
-                console.log(response.data.data);
             }
         } catch (error) {
-            console.error(error);
+           if(error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Error while fetching product. Please try again later");
+            }
         }
     };
 
@@ -88,12 +91,17 @@ export default function ViewProduct() {
                 fetchInitialData();
             }
         } catch (error) {
-            console.error("Error updating product:", error);
+            if(error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Error while editing product. Please try again later");
+            }
         }
     };
 
     useEffect(() => {
         fetchInitialData();
+        // Fetch initial data here
         // eslint-disable-next-line
     }, [id]);
 

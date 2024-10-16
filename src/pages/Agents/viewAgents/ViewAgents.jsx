@@ -5,6 +5,7 @@ import styles from "../../../styles/pages/Agent/viewAgent.module.css";
 import TableComponent from "./Table";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 // import { toast } from "react-toastify";
 import EditButton from "../../../components/Buttons/EditButton";
 import FullWidthTextField from "../../../components/SearchBar/SearchBar";
@@ -22,7 +23,11 @@ function ViewAgents() {
           setAllData(response.data.data);
         }
       } catch (error) {
-        console.error(error);
+        if(error.response?.data?.message){
+          toast.error(error.response.data.message);
+        }else{
+          toast.error("Error while fetching agents. Please try again later");
+        }
       }
     }
 
@@ -57,7 +62,11 @@ function ViewAgents() {
         setAllData(response.data.data);
       }
     } catch (error) {
-      console.log(error);
+      if(error.response?.data?.message){
+        toast.error(error.response.data.message);
+      }else{
+        toast.error("Error while fetching agents. Please try again later");
+      }
     }
   };
 

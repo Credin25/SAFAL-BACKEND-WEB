@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 const AuthRoute = ({ element }) => {
     const value = Cookies.get('refreshToken');
     const navigate = useNavigate();
-    const [refreshToken,] = useState(value);
+    const [refreshToken] = useState(value);
     useEffect(() => {
         if (!refreshToken) {
             navigate('/login', { replace: true });

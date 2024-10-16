@@ -31,7 +31,11 @@ function AddNewOrder() {
                 setAllAgents(response.data.data);
             }
         } catch (error) {
-            console.error(error);
+            if(error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('Error while fetching agents. Please try again later');
+            }
         }
     };
 
@@ -42,7 +46,11 @@ function AddNewOrder() {
                 setAllProducts(response.data.data.products);
             }
         } catch (error) {
-            console.error(error);
+            if(error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('Error while fetching products. Please try again later');
+            }
         }
     };
 
@@ -127,9 +135,14 @@ function AddNewOrder() {
                 setIsModalOpen(false);
                 navigate("/order") 
             } else {
-                console.error("Failed to place order");
+                toast.error(response.data.message);
             }
         } catch (error) {
+            if(error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('Error while placing order. Please try again later');
+            }
             console.error("Error while placing order", error);
         }
     };

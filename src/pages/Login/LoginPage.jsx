@@ -16,21 +16,32 @@ function LoginPage({ onLoginSuccess }) {
             setError('Email and password are required');
             return;
         }
-        const responce = await axios.post(`${safalBackend}/auth/login`, {
-            email, password
-        },{
-            withCredentials: true
-        });
-        console.log(responce.data)
-        if (responce.data.success) {
-            const { email } = responce.data.data;
-            localStorage.setItem('email', email); 
-            onLoginSuccess();
+        
+        try {
+            const response = await axios.post(`${safalBackend}/auth/login`, {
+                email, password
+            }, {
+                withCredentials: true
+            });
+            
+            if (response.data.success) {
+                const { email } = response.data.data;
+                localStorage.setItem('email', email); 
+                onLoginSuccess();
+            }
+            
+            // Clear the form and error message
+            setEmail('');
+            setPassword('');
+            setError('');
+        } catch (error) {
+           if(error.response?.data?.message) {
+                setError(error.response.data.message);
+            }
+            setError('Login failed. Please check your credentials and try again.');
         }
-        setEmail('');
-        setPassword('');
-        setError('');
     };
+    
 
     return (
         <div className={styles.container}>
