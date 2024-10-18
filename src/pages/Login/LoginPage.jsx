@@ -77,7 +77,7 @@ function LoginPage({ onLoginSuccess }) {
 
                 {/* Footer */}
                 <div className={styles.footer}>
-                    © 2024 Upkram Technologies. All rights reserved.
+                    © {new Date().getFullYear()} Upkram Technologies. All rights reserved.
                 </div>
             </form>
         </div>
