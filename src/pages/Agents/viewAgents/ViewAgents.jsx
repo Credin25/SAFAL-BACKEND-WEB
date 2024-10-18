@@ -20,7 +20,7 @@ function ViewAgents() {
       try {
         const response = await axios.get(`${safalBackend}/agent/all`, {withCredentials: true});
         if (response.data.success) {
-          setAllData(response.data.data);
+          setAllData(response.data?.data);
         }
       } catch (error) {
         if(error.response?.data?.message){
@@ -38,12 +38,12 @@ function ViewAgents() {
       console.log(Agent);
       const obj = {
       }
-      obj.name = `${Agent.firstName} ${Agent.lastName}`;
-      obj.phone = Agent.phone;
-      obj.pannumber = Agent.panNumber;
-      obj.aadharnumber = Agent.aadharNumber;
-      obj.voterid = Agent.voterId;
-      obj.id = Agent._id;
+      obj.name = `${Agent?.firstName} ${Agent?.lastName}`;
+      obj.phone = Agent?.phone;
+      obj.pannumber = Agent?.panNumber;
+      obj.aadharnumber = Agent?.aadharNumber;
+      obj.voterid = Agent?.voterId;
+      obj.id = Agent?._id;
       return obj;
     });
     setRows(rows);

@@ -16,7 +16,7 @@ function User() {
             try {
                 const response = await axios.get(`${safalBackend}/users/${id}`);
                 if (response.data.success) {
-                    setData(response.data.data);
+                    setData(response?.data?.data);
                     console.log(response.data.data);
                 }
             } catch (error) {
@@ -80,13 +80,13 @@ function User() {
                                         <td className={styles.row}>
                                             {sale?.sellItems?.map((item, index) => (
                                                 <p key={index}>
-                                                    {item.productId.name} <span> x {item.quantity}</span>
+                                                    {item?.productId?.name} <span> x {item?.quantity}</span>
                                                 </p>
                                             ))}
                                         </td>
-                                        <td className={styles.row}>{sale.amount}</td>
-                                        <td className={styles.row}>{sale.createdAt}</td>
-                                        <td className={styles.row}>{sale.customerContactNumber}</td>
+                                        <td className={styles.row}>{sale?.amount}</td>
+                                        <td className={styles.row}>{sale?.createdAt}</td>
+                                        <td className={styles.row}>{sale?.customerContactNumber}</td>
 
 
                                     </tr>
@@ -115,13 +115,13 @@ function User() {
                             <tbody>
                                 {data?.Orders?.map((order, index) => (
                                     <tr key={index}>
-                                        <td className={styles.row}>{order.orderId}</td>
-                                        <td className={styles.row}>{order.orderDate}</td>
-                                        <td className={styles.row}>{order.amount}</td>
+                                        <td className={styles.row}>{order?.orderId}</td>
+                                        <td className={styles.row}>{order?.orderDate}</td>
+                                        <td className={styles.row}>{order?.amount}</td>
                                         <td className={styles.row}>
                                             {order?.orderedItems?.map((item, index) => (
                                                 <p key={index}>
-                                                    {item.productId.name} <span> x {item.quantity}</span>
+                                                    {item?.productId?.name} <span> x {item?.quantity}</span>
                                                 </p>
                                             ))}
                                         </td>

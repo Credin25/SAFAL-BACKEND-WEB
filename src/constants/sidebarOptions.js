@@ -12,7 +12,7 @@ const sidebarOptions = [
     },
     {
         label: 'Insurance',
-        path: '/',
+        path: '/insurance',
         icon: HealthAndSafetyIcon
     },
     {

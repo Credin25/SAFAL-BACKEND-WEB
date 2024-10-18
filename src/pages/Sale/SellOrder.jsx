@@ -33,16 +33,15 @@ function SellOrder() {
   }, []);
   useEffect(() => {
     const rows = allData.map((SingleSale) => {
-      console.log(SingleSale);
       const obj = {
       }
-      obj.orderid = SingleSale.orderID;
-      obj.date = new Date(SingleSale.Date).toLocaleDateString();
-      obj.ordertable = SingleSale.orderTable;
-      obj.amount = SingleSale.amount;
-      obj.customername = SingleSale.customerName;
-      obj.customernumber = SingleSale.customerNumber;
-      obj.ordereditems = SingleSale.orderedItems.map(item => `${item.productName} (x${item.quantity})`).join(', ')
+      obj.orderid = SingleSale?.orderID;
+      obj.date = new Date(SingleSale?.Date).toLocaleDateString();
+      obj.ordertable = SingleSale?.orderTable;
+      obj.amount = SingleSale?.amount;
+      obj.customername = SingleSale?.customerName;
+      obj.customernumber = SingleSale?.customerNumber;
+      obj.ordereditems = SingleSale.orderedItems.map(item => `${item?.productName} (x${item?.quantity})`).join(', ')
       return obj;
     });
     setRows(rows);

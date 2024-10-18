@@ -97,7 +97,7 @@ export default function Sidebar({ children }) {
     };
     const handleLogout = () => {
         localStorage.clear();
-        navigate('/login');
+        navigate('/');
     }
     return (
         <Box sx={{ display: 'flex' }}>

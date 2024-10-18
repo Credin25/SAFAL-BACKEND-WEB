@@ -25,11 +25,11 @@ export default function ViewProduct() {
             if (response.data.success) {
                 setProduct(response.data.data);
                 setFormData({
-                    description: response.data.data.description,
-                    safalAppPrice: response.data.data.price.safalAppPrice,
-                    agentAppPrice: response.data.data.price.agentAppPrice,
-                    safalBackendPrice: response.data.data.price.safalBackendPrice,
-                    stockAvailable: response.data.data.stockAvailable
+                    description: response?.data?.data?.description,
+                    safalAppPrice: response?.data?.data?.price?.safalAppPrice,
+                    agentAppPrice: response?.data?.data?.price?.agentAppPrice,
+                    safalBackendPrice: response?.data?.data?.price?.safalBackendPrice,
+                    stockAvailable: response?.data?.data?.stockAvailable
                 });
             }
         } catch (error) {

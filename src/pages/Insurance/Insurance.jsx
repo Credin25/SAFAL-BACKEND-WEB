@@ -14,7 +14,7 @@ const Insurance = () => {
             try {
                 const response = await axios.get(`${safalBackend}/insurance/all-insurance`, { withCredentials: true });
                 if (response.data.success) {
-                    setAllData(response.data.data);
+                    setAllData(response?.data?.data);
                 }
             } catch (error) {
                 if (error.response.data) {

@@ -14,7 +14,7 @@ function AllProduct() {
         try {
             const response = await axios.get(`${safalBackend}/product`);
             if (response.data.success) {
-                setData(response.data.data.products);
+                setData(response?.data?.data?.products);
             }
         } catch (error) {
             if (error.response?.data?.message) {

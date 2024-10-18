@@ -63,7 +63,7 @@ function EditAgent() {
             const response = await axios.put(`${safalBackend}/agent/${id}`, initialData);
             if (response.data.success) {
                 toast.success("Agent updated successfully!");
-                setInitialData(response.data.data);
+                setInitialData(response?.data?.data);
                 navigate('/agents')
             } else {
                 toast.error("Failed to update agent.");

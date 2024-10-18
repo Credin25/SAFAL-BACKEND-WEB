@@ -19,22 +19,22 @@ const OurOrders = () => {
         try {
             const response = await axios.get(`${safalBackend}/order?page=${page}`);
             if (response.data.success) {
-                const orders = response.data.data.map(order => ({
-                    orderId: order.orderId,
-                    id: order._id,
-                    source: order.source,
-                    orderedBy: order.userDetails.name,
-                    orderedItems: order.orderedItems.map(item => `${item.productId.name} (x${item.quantity})`).join(', '),
-                    orderDate: new Date(order.orderDate).toLocaleDateString(),
-                    orderStatus: order.orderStatus,
+                const orders = response?.data?.data?.map(order => ({
+                    orderId: order?.orderId,
+                    id: order?._id,
+                    source: order?.source,
+                    orderedBy: order?.userDetails?.name,
+                    orderedItems: order?.orderedItems.map(item => `${item?.productId?.name} (x${item?.quantity})`).join(', '),
+                    orderDate: new Date(order?.orderDate).toLocaleDateString(),
+                    orderStatus: order?.orderStatus,
                     orderedFor: order?.orderedFor
-                        ? `${order.orderedFor.firstName} ${order.orderedFor.lastName}`
+                        ? `${order?.orderedFor?.firstName} ${order?.orderedFor?.lastName}`
                         : ' '
                 }));
-                console.log(orders);
                 setData(orders);
             }
         } catch (error) {
+            console.log(error)
             if (error.response?.data?.message) {
                 toast.error(error.response.data.message);
             } else {
