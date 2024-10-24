@@ -17,6 +17,8 @@ import User from "../pages/Users/User";
 import UserSellData from "../pages/Users/UserSellData";
 import SellOrder from "../pages/Sale/SellOrder";
 import ViewStaff from "../pages/AddNewStaffMember/ViewStaff/ViewStaff";
+import SafalUsers from "../pages/Customers/ViewAllSafalUsers/ViewSafalUsers";
+import Customer from "../pages/Customers/ViewSingleUser/Customer";
 import {
     Routes,
     Route,
@@ -41,28 +43,31 @@ const MainHome = () => {
             }} />} />
             <Route element={<AuthenticatedLayout />}>
                 {/* insurance */}
-                <Route path="/insurance" element={<Insurance />} />
-                <Route path="/insurance/:id" element={<ViewSingleInsurance />} />
+                <Route path="/insurance" element={<AuthRoute element={<Insurance />} />} />
+                <Route path="/insurance/:id" element={<AuthRoute element={<ViewSingleInsurance />} />} />
                 {/* order */}
-                <Route path="/order" element={<OurOrders />} />
-                <Route path="/order/new" element={<CreateNewOrder />} />
-                <Route path="/order/:id" element={<Order />} />
+                <Route path="/order" element={<AuthRoute element={<OurOrders />} />} />
+                <Route path="/order/new" element={<AuthRoute element={<CreateNewOrder />} />} />
+                <Route path="/order/:id" element={<AuthRoute element={<Order />} />} />
                 {/* Staff */}
-                <Route path="/staff" element={<AddNewLogin />} />
-                <Route path="/staff/view-all" element={<ViewStaff />} />
+                <Route path="/staff" element={<AuthRoute element={<AddNewLogin />} />} />
+                <Route path="/staff/view-all" element={<AuthRoute element={<ViewStaff />} />} />
                 {/* sale */}
-                <Route path="/sell" element={<SellOrder />} />
+                <Route path="/sell" element={<AuthRoute element={<SellOrder />} />} />
                 {/* Agents */}
-                <Route path="/createAgent" element={<CreateAgent />} />
-                <Route path="/agents" element={<ViewAgents />} />
-                <Route path="/agent/:id" element={<EditAgent />} />
+                <Route path="/createAgent" element={<AuthRoute element={<CreateAgent />} />} />
+                <Route path="/agents" element={<AuthRoute element={<ViewAgents />} />} />
+                <Route path="/agent/:id" element={<AuthRoute element={<EditAgent />} />} />
                 {/* USER */}
-                <Route path="/user/:id" element={<User />} />
-                <Route path="/user/:id/sell" element={<UserSellData />} />
+                <Route path="/user/:id" element={<AuthRoute element={<User />} />} />
+                <Route path="/user/:id/sell" element={<AuthRoute element={<UserSellData />} />} />
                 {/*Products  */}
-                <Route path="/products" element={<AllProduct />} />
-                <Route path="/product/new" element={<AddNewProduct />} />
-                <Route path="/product/:id" element={<ViewProduct />} />
+                <Route path="/products" element={<AuthRoute element={<AllProduct />} />} />
+                <Route path="/product/new" element={<AuthRoute element={<AddNewProduct />} />} />
+                <Route path="/product/:id" element={<AuthRoute element={<ViewProduct />} />} />
+                {/* safal users */}
+                <Route path="/safal/users" element={<AuthRoute element={<SafalUsers />} />} />
+                <Route path="/safal/user/:id" element={<AuthRoute element={<Customer />} />} />
             </Route>
 
         </Routes>
