@@ -22,7 +22,7 @@ const sidebarOptions = [
         icon: HealthAndSafetyIcon
     },
     {
-        label: 'Our Orders',
+        label: 'Bulk Order',
         path: '/order',
         icon: MoveToInboxIcon
     }, {
@@ -33,7 +33,7 @@ const sidebarOptions = [
     },
     {
 
-        label: 'Selling Orders',
+        label: 'Retail Orders',
         path: '/sell',
         icon: OutboxIcon
     },

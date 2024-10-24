@@ -65,7 +65,7 @@ const OurOrders = () => {
 
     return (
         <div className={styles.parentDiv}>
-            <Header heading="Our Recent Orders" />
+            <Header heading="Bulk Orders" />
             <div className={styles.container}>
                 <div className={styles.button}>
                     <EditButton text={"Create New Order"} onClickFunction={createNewOrder} />
