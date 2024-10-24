@@ -41,8 +41,6 @@ function ViewAgents() {
       obj.name = `${Agent?.firstName} ${Agent?.lastName}`;
       obj.phone = Agent?.phone;
       obj.pannumber = Agent?.panNumber;
-      obj.aadharnumber = Agent?.aadharNumber;
-      obj.voterid = Agent?.voterId;
       obj.id = Agent?._id;
       return obj;
     });
@@ -50,7 +48,7 @@ function ViewAgents() {
   }, [allData])
 
   const columns = [
-    "Name", "Phone", "PanNumber", "aadharNumber", "voterId", "Action"
+    "Name", "Phone", "PanNumber", "Action"
   ];
   const serachFunction = async (searchStr) => {
 

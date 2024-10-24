@@ -4,11 +4,17 @@ import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
 import OutboxIcon from '@mui/icons-material/Outbox';
 import StoreIcon from '@mui/icons-material/Store';
+import Groups2Icon from '@mui/icons-material/Groups2';
 const sidebarOptions = [
     {
-        label: "Agents",
+        label: 'Agents',
         path: '/agents',
         icon: GroupIcon
+    },
+    {
+        label: 'Safal Users',
+        path:'/safal/users',
+        icon: Groups2Icon
     },
     {
         label: 'Insurance',
