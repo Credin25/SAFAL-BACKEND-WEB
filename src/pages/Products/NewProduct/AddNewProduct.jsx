@@ -57,28 +57,46 @@ function AddNewProduct() {
             <div className={styles.container}>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.Formrow}>
-                        <TextField label="Name" sx={{ width: "30%" }} required value={data.name} onChange={handleInput} name="name" />
-                        <TextField label="MRP" sx={{ width: "30%" }} required value={data.MRP} onChange={handleInput} name="MRP" />
-                    </div>
-                    <div className={styles.Formrow}>
-                        <TextField label="Price for Agent App" sx={{ width: "30%" }} required value={data.agentAppPrice} onChange={handleInput} name="agentAppPrice" />
-                        <TextField label="Price for SAFAL App" sx={{ width: "30%" }} required value={data.safalAppPrice} onChange={handleInput} name="safalAppPrice" />
-                    </div>
-                    <div className={styles.Formrow}>
-                        <TextField label="Price for our Staff" sx={{ width: "30%" }} required value={data.safalBackendPrice} onChange={handleInput} name="safalBackendPrice" />
-
+                        <TextField label="Name in English" sx={{ width: "30%" }} required value={data.name} onChange={handleInput} name="name" />
+                        <TextField label="Name in Hindi" sx={{ width: "30%" }} required value={data.name} onChange={handleInput} name="name" />
+                        <TextField label="Name in Gujrati" sx={{ width: "30%" }} required value={data.name} onChange={handleInput} name="name" />
                     </div>
                     <div className={styles.Formrow}>
                         <TextField
                             id="outlined-multiline-static"
-                            label="Discription"
+                            label="Discription in English"
                             multiline
-                            rows={4}
+                            rows={5}
                             name="description"
                             required
-                            sx={{ width: "100%" }}
+                            sx={{ width: "30%" }}
                             value={data.description} onChange={handleInput}
                         />
+                        <TextField
+                            id="outlined-multiline-static"
+                            label="Discription in Hindi"
+                            multiline
+                            rows={5}
+                            name="description"
+                            required
+                            sx={{ width: "30%" }}
+                            value={data.description} onChange={handleInput}
+                        />
+                        <TextField
+                            id="outlined-multiline-static"
+                            label="Discription in Gujrati"
+                            multiline
+                            rows={5}
+                            name="description"
+                            required
+                            sx={{ width: "30%" }}
+                            value={data.description} onChange={handleInput}
+                        />
+                    </div>
+                    <div className={styles.Formrow}>
+
+                        <TextField label="MRP" sx={{ width: "30%" }} required value={data.MRP} onChange={handleInput} name="MRP" />
+                        <TextField label="Price for SAFAL App" sx={{ width: "30%" }} required value={data.safalAppPrice} onChange={handleInput} name="safalAppPrice" />
                     </div>
                     <div className={styles.ButtonRow}>
                         <BlueButton text="Add Product" type="submit" />

@@ -5,22 +5,17 @@ import Header from "../../components/PageHeader/Header";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { safalBackend } from "../../constants/apiRoutes";
-function Order() {
+const SafalOrder = () => {
     const { id } = useParams();
     const [data, setData] = useState({});
     const [status, setStatus] = useState("");
-    const [agentPricing, setAgentPricing] = useState([]);
+
     const fetchData = async () => {
         try {
             const response = await axios.get(`${safalBackend}/order/${id}`);
             if (response.data.success) {
                 setData(response.data.data);
                 setStatus(response.data.data.order.orderStatus);
-                const initialPricing = response.data.data.order.orderedItems.map(item => ({
-                    productId: item.productId._id,
-                    price: 0  
-                }));
-                setAgentPricing(initialPricing);
             }
 
         } catch (error) {
@@ -128,15 +123,8 @@ function Order() {
                         <p>Source: {data?.order?.source}</p>
                         <p>Amount: {data?.order?.amount}</p>
                         <p>Current Order Status:  {data?.order?.orderStatus}</p>
-                        <p>Order Date: {formatDateAndTime(data?.order?.orderDate)}</p>
-                        <ul>
-                            Agent Pricing
-                            {data?.order?.agentPricing?.map((item, index) => (
-                                <li key={index}>
-                                    <p>{item?.productId?.name} * {item?.price}</p>
-                                </li>
-                            ))}
-                        </ul>
+                        <p>Order Date: {formatDateAndTime(data?.order?.createdAt)}</p>
+
                     </div>
                     <div className={styles.rightdiv}>
                         <p>Order Status:</p>
@@ -149,14 +137,6 @@ function Order() {
                             <option value="ON_CREDIT">ON Credit</option>
                             <option value="ACCEPTED_ORDER">Order Accepted</option>
                         </select>
-                        <p>Agent Pricing</p>
-                        <ul>
-                            {data?.order?.orderedItems?.map((item, index) => (
-                                <li key={index}>
-                                    <p>{item.productId?.name} * {item.quantity}</p> <input type="number" onChange={(e) => handleAgentPricing(e.target.value, item.productId._id)} /> <button onClick={() => updateAgentPricing(item.productId._id)}>Add</button>
-                                </li>
-                            ))}
-                        </ul>
                         <p>Ordered Items:</p>
                         <ul>
                             {data?.order?.orderedItems?.map((item, index) => (
@@ -172,4 +152,6 @@ function Order() {
     );
 }
 
-export default Order;
+
+
+export default SafalOrder;

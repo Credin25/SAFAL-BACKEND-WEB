@@ -1,12 +1,9 @@
-// import GreyButton from "../../../components/Buttons/GreyButton"
-// import BlueButton from "../../../components/Buttons/BlueButton"
 import Header from "../../../components/PageHeader/Header";
 import styles from "../../../styles/pages/Agent/viewAgent.module.css";
 import TableComponent from "./Table";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-// import { toast } from "react-toastify";
 import EditButton from "../../../components/Buttons/EditButton";
 import FullWidthTextField from "../../../components/SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
@@ -84,15 +81,6 @@ function ViewAgents() {
         </div>
 
         <TableComponent rows={rows} headers={columns} />
-        {/* <div className={styles.buttonDiv}>
-          <GreyButton text="Back" onClickFunction={() => { }} />
-          <div className={styles.pageDiv}>
-            <BlueButton text="Previous" onClickFunction={() => { }} />
-            <span className={styles.pageNo}>1</span>
-            <BlueButton text="Next" onClickFunction={() => { }} />
-          </div>
-        </div> */}
-
       </div>
     </div>
   )

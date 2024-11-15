@@ -15,10 +15,13 @@ import ViewProduct from "../pages/Products/ViewProduct/ViewProduct";
 import AddNewProduct from "../pages/Products/NewProduct/AddNewProduct";
 import User from "../pages/Users/User";
 import UserSellData from "../pages/Users/UserSellData";
-import SellOrder from "../pages/Sale/SellOrder";
+import SellOrder from "../pages/RetailOrders/SellOrder";
 import ViewStaff from "../pages/AddNewStaffMember/ViewStaff/ViewStaff";
 import SafalUsers from "../pages/Customers/ViewAllSafalUsers/ViewSafalUsers";
 import Customer from "../pages/Customers/ViewSingleUser/Customer";
+import AgentDetails from "../pages/Agents/AgentCompleteDetails/AgentDetails";
+import SafalOrder from "../pages/RetailOrders/SafalOrder";
+import NewRetailOrder from "../pages/RetailOrders/NewRetailOrder";
 import {
     Routes,
     Route,
@@ -54,10 +57,13 @@ const MainHome = () => {
                 <Route path="/staff/view-all" element={<AuthRoute element={<ViewStaff />} />} />
                 {/* sale */}
                 <Route path="/sell" element={<AuthRoute element={<SellOrder />} />} />
+                <Route path="/retail/sell/:id" element={<AuthRoute element={<SafalOrder />} />} />
+                <Route path="/retail/new/order" element={<AuthRoute element={<NewRetailOrder />} />} />
                 {/* Agents */}
                 <Route path="/createAgent" element={<AuthRoute element={<CreateAgent />} />} />
                 <Route path="/agents" element={<AuthRoute element={<ViewAgents />} />} />
                 <Route path="/agent/:id" element={<AuthRoute element={<EditAgent />} />} />
+                <Route path="/agent/info/:id" element={<AuthRoute element={<AgentDetails />} />} />
                 {/* USER */}
                 <Route path="/user/:id" element={<AuthRoute element={<User />} />} />
                 <Route path="/user/:id/sell" element={<AuthRoute element={<UserSellData />} />} />

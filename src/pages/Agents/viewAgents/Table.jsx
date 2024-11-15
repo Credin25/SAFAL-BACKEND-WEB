@@ -9,10 +9,12 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import EditButton from '../../../components/Buttons/EditButton';
 import DeleteButton from '../../../components/Buttons/DeleteButton';
+import BlueButton from '../../../components/Buttons/BlueButton';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { safalBackend } from '../../../constants/apiRoutes';
 import { toast } from 'react-toastify';
+import InfoButton from '../../../components/Buttons/InfoButton';
 // eslint-disable-next-line
 const TableComponent = ({ rows, headers }) => {
     const StyledTableCell = styled(TableCell)(() => ({
@@ -53,6 +55,10 @@ const TableComponent = ({ rows, headers }) => {
             }
         }
     }
+
+    const handleInfo = (id) => {
+        return navigate(`/agent/info/${id}`)
+    }
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -76,6 +82,7 @@ const TableComponent = ({ rows, headers }) => {
                                         <>
                                             <EditButton text="Edit" onClickFunction={() => handleEdit(row?.id)} />
                                             <DeleteButton text="Delete" onClickFunction={() => { handleDelete(row?.id) }} />
+                                            <InfoButton text="Details" onClickFunction={() => handleInfo(row?.id)} />
                                         </>
                                     ) : (
                                         row[header.toLowerCase()]

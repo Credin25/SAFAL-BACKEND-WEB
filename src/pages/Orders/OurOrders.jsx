@@ -47,7 +47,7 @@ const OurOrders = () => {
         fetchData();
     }, [pageNumber]);
 
-    const columns = ["orderId", "source", "orderedBy", "orderedFor", "orderedItems", "orderDate", "orderStatus", "action"];
+    const columns = ["orderDate", "source", "orderId", "orderedBy", "orderedFor", "orderedItems", , "orderStatus", "action"];
 
     const createNewOrder = async () => {
         navigate("/order/new");

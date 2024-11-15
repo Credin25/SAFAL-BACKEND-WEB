@@ -18,9 +18,16 @@
     padding: 20px;
 }
 
-.topHeader{
+.topHeader {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
+    gap: 30px;
     width: 100%;
-    
+    align-items: center;
+    margin-bottom: 10px;
+    /* background-color: salmon; */
+}
+
+.createButton {
+ margin-right: auto;
 }
