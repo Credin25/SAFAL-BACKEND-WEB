@@ -29,7 +29,8 @@ function SellOrder() {
     source: [
       { value: 'all', label: 'All Sources' },
       { value: 'agent', label: 'Agent' },
-      { value: 'safal', label: 'Safal' }
+      { value: 'safal', label: 'Safal' },
+      { value: 'staff', label: 'Staff' }
     ],
     status: [
       { value: 'all', label: 'All Statuses' },
@@ -99,7 +100,14 @@ function SellOrder() {
     // Filter by source
     if (filters.source !== 'all') {
       filteredData = filteredData.filter((singleData) => {
-        return singleData.ordertable === (filters.source === 'agent' ? 'AGENT' : 'SAFAL');
+        if (filters.source === 'agent') {
+          return singleData.ordertable === 'AGENT';
+        } else if (filters.source === 'safal') {
+          return singleData.ordertable === 'SAFAL';
+        } else if (filters.source === 'staff') {
+          return singleData.ordertable === 'STAFF';
+        }
+        return true;
       });
     }
     // Filter by timeframe
@@ -143,7 +151,7 @@ function SellOrder() {
       <div className={styles.container}>
         <div className={styles.topHeader}>
           <div className={styles.createButton}>
-            <EditButton text={"Create New Order"} onClickFunction={() => navigate("/retail/new/order")}  />
+            <EditButton text={"Create New Order"} onClickFunction={() => navigate("/retail/new/order")} />
           </div>
           <FilterContainer>
             {Object.entries(filterOptions).map(([filterType, options]) => (

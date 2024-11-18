@@ -6,7 +6,7 @@ import axios from "axios";
 import { safalBackend } from "../../constants/apiRoutes";
 import BlueButton from "../../components/Buttons/BlueButton";
 import { Modal, Box, Button, TextField, Select, MenuItem } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 const style = {
     position: 'absolute',
     top: '50%',
@@ -26,6 +26,7 @@ const NewRetailOrder = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const email = localStorage.getItem('email');
+    const navigate = useNavigate();
     // Form states combined into a single object
     const [formData, setFormData] = useState({
         contactNumber: "",
@@ -35,8 +36,16 @@ const NewRetailOrder = () => {
         pincode: "",
         addressLine1: "",
         addressLine2: "",
-        paymentMethod: "online"
+        paymentMethod: "ONLINE"
+
     });
+    const [customerDetailsModalOpen, setCustomerDetailsModalOpen] = useState(false);
+    const [customerDetails, setCustomerDetails] = useState({
+        customerName: "",
+        customerMobile: "",
+    });
+    const [customerErrors, setCustomerErrors] = useState({});
+
 
     // Modal states
     const [deliveryAddressModalOpen, setDeliveryAddressModalOpen] = useState(false);
@@ -69,7 +78,7 @@ const NewRetailOrder = () => {
         return total + (item.MRP * item.quantity);
     }, 0);
 
-    const getItemQuantity = (itemId) => 
+    const getItemQuantity = (itemId) =>
         cart.find((cartItem) => cartItem.id === itemId)?.quantity || 0;
 
     const updateQuantity = (itemId, increment = true) => {
@@ -90,7 +99,19 @@ const NewRetailOrder = () => {
             return prevCart;
         });
     };
-
+    const handleCustomerDetailsChange = (e) => {
+        const { name, value } = e.target;
+        setCustomerDetails((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+        if (customerErrors[name]) {
+            setCustomerErrors((prev) => ({
+                ...prev,
+                [name]: "",
+            }));
+        }
+    };
     // Form handling
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -114,7 +135,7 @@ const NewRetailOrder = () => {
         if (!formData.state) newErrors.state = "State is required";
         if (!formData.pincode) newErrors.pincode = "Pincode is required";
         if (!formData.addressLine1) newErrors.addressLine1 = "Address is required";
-        
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -133,54 +154,75 @@ const NewRetailOrder = () => {
             setPaymentModalOpen(true);
         }
     };
+    const validateCustomerDetails = () => {
+        const errors = {};
+        if (!customerDetails.customerName) errors.customerName = "Customer name is required.";
+        if (!customerDetails.customerMobile || customerDetails.customerMobile.length !== 10)
+            errors.customerMobile = "Valid mobile number is required.";
 
-    const handlePaymentSubmit = async () => {
-        try {
-            setIsSubmitting(true);
-            // Prepare order data
-            const orderData = {
-                orderedItems: cart.map(item => ({
-                    productId: item.id,
-                    quantity: item.quantity,
-                })),
-                deliveryAddress: {
-                    city: formData.city,
-                    state: formData.state,
-                    pincode: formData.pincode,
-                    district: formData.district,
-                    addressLine: `${formData.addressLine1}, ${formData.addressLine2}` || formData.addressLine1,
-                },
-                deliveryContactNumber: formData.contactNumber,
-                paymentMethod: formData.paymentMethod,
-                amount: cartTotal,
-                source: "STAFF",
-                orderedBy: email, 
-            };
+        setCustomerErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
 
-            // Make API call to create order
-            const response = await axios.post(`${safalBackend}/order`, orderData);
-            
-            if (response.data.success) {
-                toast.success("Order placed successfully!");
-                // Reset form and cart
-                setCart([]);
-                setFormData({
-                    contactNumber: "",
-                    city: "",
-                    state: "",
-                    pincode: "",
-                    addressLine1: "",
-                    addressLine2: "",
-                    paymentMethod: "online"
-                });
-                setPaymentModalOpen(false);
-            }
-        } catch (error) {
-            toast.error(error.response?.data?.message || "Error placing order.");
-        } finally {
-            setIsSubmitting(false);
+    const handlePaymentSubmit = () => {
+        if (validateDeliveryForm()) {
+            setDeliveryAddressModalOpen(false);
+            setPaymentModalOpen(false);
+            setCustomerDetailsModalOpen(true); // Open customer details modal
         }
     };
+    const handleCustomerDetailsSubmit = async () => {
+        if (validateCustomerDetails()) {
+            setCustomerDetailsModalOpen(false);
+
+            try {
+                setIsSubmitting(true);
+                const orderData = {
+                    orderedItems: cart.map((item) => ({
+                        productId: item.id,
+                        quantity: item.quantity,
+                    })),
+                    deliveryAddress: {
+                        city: formData.city,
+                        state: formData.state,
+                        pincode: formData.pincode,
+                        district: formData.district,
+                        addressLine: `${formData.addressLine1}, ${formData.addressLine2}` || formData.addressLine1,
+                    },
+                    deliveryContactNumber: formData.contactNumber,
+                    paymentMode: formData.paymentMethod,
+                    amount: cartTotal,
+                    source: "STAFF",
+                    orderedBy: email,
+                    orderCategory: "RETAIL",
+                    customer: { ...customerDetails }, // Include customer details
+                };
+
+                const response = await axios.post(`${safalBackend}/order`, orderData);
+                if (response.data.success) {
+                    toast.success("Order placed successfully!");
+                    // Reset all forms
+                    setCart([]);
+                    setFormData({
+                        contactNumber: "",
+                        city: "",
+                        state: "",
+                        pincode: "",
+                        addressLine1: "",
+                        addressLine2: "",
+                        paymentMethod: "ONLINE",
+                    });
+                    setCustomerDetails({ customerName: "", customerMobileNumber: "" });
+                    navigate("/sell");
+                }
+            } catch (error) {
+                toast.error(error.response?.data?.message || "Error placing order.");
+            } finally {
+                setIsSubmitting(false);
+            }
+        }
+    };
+
 
     if (isLoading) {
         return <div className={styles.parentDiv}>Loading...</div>;
@@ -197,7 +239,7 @@ const NewRetailOrder = () => {
                             <h3>{item.name}</h3>
                             <p>Price: ₹{item.MRP}</p>
                             <div className={styles.quantityControls}>
-                                <button 
+                                <button
                                     onClick={() => updateQuantity(item._id, false)}
                                     disabled={getItemQuantity(item._id) === 0}
                                 >
@@ -212,30 +254,30 @@ const NewRetailOrder = () => {
 
                 <div className={styles.orderForm}>
                     <p>Total Amount: ₹{cartTotal}</p>
-                    <BlueButton 
-                        text="Place Order" 
+                    <BlueButton
+                        text="Place Order"
                         onClickFunction={handleOrderSubmit}
                         disabled={cart.length === 0 || isSubmitting}
                     />
                 </div>
 
                 {/* Delivery Address Modal */}
-                <Modal 
-                    open={deliveryAddressModalOpen} 
+                <Modal
+                    open={deliveryAddressModalOpen}
                     onClose={() => setDeliveryAddressModalOpen(false)}
                 >
                     <Box sx={style}>
                         <h3>Delivery Address</h3>
-                        <TextField 
-                            label="City" 
+                        <TextField
+                            label="City"
                             name="city"
-                            fullWidth 
-                            variant="outlined" 
-                            value={formData.city} 
+                            fullWidth
+                            variant="outlined"
+                            value={formData.city}
                             onChange={handleInputChange}
                             error={!!errors.city}
                             helperText={errors.city}
-                            sx={{ marginBottom: '10px' }} 
+                            sx={{ marginBottom: '10px' }}
                         />
 
                         <TextField
@@ -248,66 +290,66 @@ const NewRetailOrder = () => {
                             sx={{ marginBottom: '10px' }}
                         />
 
-                        <TextField 
-                            label="State" 
+                        <TextField
+                            label="State"
                             name="state"
-                            fullWidth 
-                            variant="outlined" 
-                            value={formData.state} 
+                            fullWidth
+                            variant="outlined"
+                            value={formData.state}
                             onChange={handleInputChange}
                             error={!!errors.state}
                             helperText={errors.state}
-                            sx={{ marginBottom: '10px' }} 
+                            sx={{ marginBottom: '10px' }}
                         />
 
-                        <TextField 
-                            label="Pincode" 
+                        <TextField
+                            label="Pincode"
                             name="pincode"
-                            fullWidth 
-                            variant="outlined" 
-                            value={formData.pincode} 
-                            type="number" 
+                            fullWidth
+                            variant="outlined"
+                            value={formData.pincode}
+                            type="number"
                             onChange={handleInputChange}
                             error={!!errors.pincode}
                             helperText={errors.pincode}
-                            sx={{ marginBottom: '10px' }} 
+                            sx={{ marginBottom: '10px' }}
                         />
 
-                        <TextField 
-                            label="Address Line 1" 
+                        <TextField
+                            label="Address Line 1"
                             name="addressLine1"
-                            fullWidth 
-                            variant="outlined" 
-                            value={formData.addressLine1} 
+                            fullWidth
+                            variant="outlined"
+                            value={formData.addressLine1}
                             onChange={handleInputChange}
                             error={!!errors.addressLine1}
                             helperText={errors.addressLine1}
-                            sx={{ marginBottom: '10px' }} 
+                            sx={{ marginBottom: '10px' }}
                         />
 
-                        <TextField 
-                            label="Address Line 2" 
+                        <TextField
+                            label="Address Line 2"
                             name="addressLine2"
-                            fullWidth 
-                            variant="outlined" 
-                            value={formData.addressLine2} 
+                            fullWidth
+                            variant="outlined"
+                            value={formData.addressLine2}
                             onChange={handleInputChange}
-                            sx={{ marginBottom: '10px' }} 
+                            sx={{ marginBottom: '10px' }}
                         />
 
-                        <TextField 
-                            label="Contact Number" 
+                        <TextField
+                            label="Contact Number"
                             name="contactNumber"
-                            fullWidth 
-                            variant="outlined" 
-                            value={formData.contactNumber} 
-                            type="number" 
+                            fullWidth
+                            variant="outlined"
+                            value={formData.contactNumber}
+                            type="number"
                             onChange={handleInputChange}
                             error={!!errors.contactNumber}
                             helperText={errors.contactNumber}
-                            sx={{ marginBottom: '10px' }} 
+                            sx={{ marginBottom: '10px' }}
                         />
-                        <Button 
+                        <Button
                             onClick={handleProceedToPayment}
                             disabled={isSubmitting}
                         >
@@ -315,37 +357,72 @@ const NewRetailOrder = () => {
                         </Button>
                     </Box>
                 </Modal>
+               
 
-                {/* Payment Modal */}
-                <Modal 
-                    open={paymentModalOpen} 
-                    onClose={() => setPaymentModalOpen(false)}
-                >
+            </div>
+            {/* Payment Modal */}
+            <Modal
+                open={paymentModalOpen}
+                onClose={() => setPaymentModalOpen(false)}
+            >
+                <Box sx={{ ...style, width: 300 }}>
+                    <h3>Payment Method</h3>
+                    <Select
+                        fullWidth
+                        variant="outlined"
+                        value={formData.paymentMethod}
+                        onChange={(e) => setFormData(prev => ({
+                            ...prev,
+                            paymentMethod: e.target.value
+                        }))}
+                        sx={{ marginBottom: '10px' }}
+                    >
+                        <MenuItem value="ONLINE">Online</MenuItem>
+                        <MenuItem value="COD">Cash on Delivery</MenuItem>
+                    </Select>
+                    <Button
+                        onClick={handlePaymentSubmit}
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? 'Processing...' : 'Confirm Order'}
+                    </Button>
+                </Box>
+            </Modal>
+             {/* customer details modal */}
+             <Modal open={customerDetailsModalOpen}>
                     <Box sx={{ ...style, width: 300 }}>
-                        <h3>Payment Method</h3>
-                        <Select
+                        <h3>Customer Details</h3>
+                        <TextField
+                            label="Customer Name"
+                            name="customerName"
                             fullWidth
                             variant="outlined"
-                            value={formData.paymentMethod}
-                            onChange={(e) => setFormData(prev => ({
-                                ...prev,
-                                paymentMethod: e.target.value
-                            }))}
-                            sx={{ marginBottom: '10px' }}
-                        >
-                            <MenuItem value="online">Online</MenuItem>
-                            <MenuItem value="cod">Cash on Delivery</MenuItem>
-                        </Select>
-                        <Button 
-                            onClick={handlePaymentSubmit}
+                            value={customerDetails.customerName}
+                            onChange={handleCustomerDetailsChange}
+                            error={!!customerErrors.customerName}
+                            helperText={customerErrors.customerName}
+                            sx={{ marginBottom: "10px" }}
+                        />
+                        <TextField
+                            label="Customer Mobile Number"
+                            name="customerMobile"
+                            fullWidth
+                            variant="outlined"
+                            value={customerDetails.customerMobile}
+                            onChange={handleCustomerDetailsChange}
+                            error={!!customerErrors.customerMobile}
+                            helperText={customerErrors.customerMobile}
+                            sx={{ marginBottom: "10px" }}
+                        />
+                        <Button
+                            onClick={handleCustomerDetailsSubmit}
                             disabled={isSubmitting}
                         >
-                            {isSubmitting ? 'Processing...' : 'Confirm Order'}
+                            {isSubmitting ? "Processing..." : "Submit"}
                         </Button>
                     </Box>
                 </Modal>
-            </div>
-        </div>
+        </div >
     );
 };
 

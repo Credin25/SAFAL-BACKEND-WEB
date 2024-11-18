@@ -104,6 +104,7 @@ function AddNewOrder() {
                 quantity: prod.quantity
             })),
             source: "STAFF",
+            orderCategory:"BULK",
             deliveryAddress: {},
             deliveryContactNumber: 0, 
             orderedBy: email, 
