@@ -1,0 +1,115 @@
+.parentDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    background-color: rgb(238, 238, 238);
+    padding:40px;
+}
+.payment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; 
+    width: 100%;
+    max-width: 500px; 
+    background-color: #ffffff; 
+    padding: 15px; 
+    border-radius: 10px; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.payment h3 {
+    font-size: 1rem;
+    color: #333333; /* Slightly darker for good readability */
+    margin: 0; /* Removes default margin */
+}
+
+.payment button {
+    padding: 10px 20px; /* Comfortable button size */
+    font-size: 1rem;
+    color: white;
+    background-color: #007BFF; /* Primary blue */
+    border: none;
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.payment button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    z-index: 1000; /* Ensure modal appears on top */
+}
+
+.mainbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for focus */
+    max-width: 300px; /* Smaller size */
+    width: 90%; /* Responsive to screen size */
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out; /* Smooth appearance */
+}
+
+.modal h1 {
+    font-size: 1.2rem; /* Smaller font size for smaller modal */
+    color: #333333;
+    margin: 0;
+}
+
+.modal button {
+    padding: 8px 16px; /* Slightly smaller button size */
+    font-size: 0.9rem; /* Adjusted font size */
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal button:hover {
+    background-color: #0056b3;
+}
+
+/* Smooth animation for the modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

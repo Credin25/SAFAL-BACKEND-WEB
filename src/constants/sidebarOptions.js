@@ -5,7 +5,13 @@ import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
 import OutboxIcon from '@mui/icons-material/Outbox';
 import StoreIcon from '@mui/icons-material/Store';
 import Groups2Icon from '@mui/icons-material/Groups2';
+import { HomeOutlined } from '@mui/icons-material';
 const sidebarOptions = [
+    {
+        label:'Home',
+        path: '/home',
+        icon: HomeOutlined
+    },
     {
         label: 'Agents',
         path: '/agents',
