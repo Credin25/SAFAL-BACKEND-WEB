@@ -27,6 +27,9 @@ const OurOrders = () => {
                     orderedItems: order?.orderedItems.map(item => `${item?.productId?.name} (x${item?.quantity})`).join(', '),
                     orderDate: new Date(order?.orderDate).toLocaleDateString(),
                     orderStatus: order?.orderStatus,
+                    amount: order?.amount,
+                    agentMobile: order.source === "STAFF" ? order?.orderedFor?.phone : order?.orderedBy,
+                    agentId: order.source === "STAFF" ? order?.orderedFor?._id : order?.userDetails._id,
                     orderedFor: order?.orderedFor
                         ? `${order?.orderedFor?.firstName} ${order?.orderedFor?.lastName}`
                         : ' '
@@ -47,7 +50,7 @@ const OurOrders = () => {
         fetchData();
     }, [pageNumber]);
 
-    const columns = ["orderDate", "source", "orderId", "orderedBy", "orderedFor", "orderedItems", , "orderStatus", "action"];
+    const columns = ["orderDate", "source", "orderId", "orderedBy", "orderedFor","agentMobile", "orderedItems", , "orderStatus", "action"];
 
     const createNewOrder = async () => {
         navigate("/order/new");

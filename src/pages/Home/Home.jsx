@@ -3,8 +3,10 @@ import styles from "../../styles/pages/Home/home.module.css";
 import Header from "../../components/PageHeader/Header";
 import { Button, Modal, TextField } from "@mui/material";
 import { useState } from "react";
+import axios from "axios";
 function Home() {
   const [ispaymentModalOpen, setPaymentModalOpen] = useState(false);
+  
   const handleModalOpen = () => {
     setPaymentModalOpen(true);
   };
@@ -12,10 +14,11 @@ function Home() {
     <div className={styles.parentDiv}>
       <Header heading="Home" />
       <div className={styles.container}>
-        <div className={styles.payment}>
+        {/* <div className={styles.payment}>
           <h2>Initiate New Payment</h2>
           <button onClick={handleModalOpen}>Initiate</button>
-        </div>
+        </div> */}
+        <h1>Home Page</h1>
       </div>
       <Modal
         open={ispaymentModalOpen}

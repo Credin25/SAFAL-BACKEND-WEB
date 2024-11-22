@@ -10,6 +10,9 @@ import Paper from '@mui/material/Paper';
 import EditButton from "../../components/Buttons/EditButton";
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { safalBackend } from '../../constants/apiRoutes';
+import { toast } from 'react-toastify';
 // eslint-disable-next-line
 const TableComponent = ({ rows, headers }) => {
     const StyledTableCell = styled(TableCell)(() => ({
@@ -34,7 +37,28 @@ const TableComponent = ({ rows, headers }) => {
     const navigate = useNavigate();
     const handleEdit = (id) => {
         return navigate(`/order/${id}`);
-    }
+    };
+    const takePayment = async (row) => {
+        try {
+            const response = await axios.post(`${safalBackend}/order/payment`, {
+                orderId: row.id,
+                amount: row.amount,
+                agentMobile: row.agentMobile ? parseInt(row.agentMobile, 10) : null, 
+                paymentMode: "ONLINE",
+                userId: row.agentId
+            });
+    
+            if (response.data.success) {
+                toast.success(response.data.message);
+            } else {
+                toast.error("Payment failed: " + response.data.message);
+            }
+        } catch (error) {
+            console.error("Error processing payment", error);
+            toast.error("An error occurred while processing the payment.");
+        }
+    };
+    
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -56,6 +80,7 @@ const TableComponent = ({ rows, headers }) => {
                                     {header === "action" ? (
                                         <StyledTableCell align="left">
                                             <EditButton text="Details" onClickFunction={() => handleEdit(row.id)} />
+                                            <EditButton text="Payment" onClickFunction={() => takePayment(row)} />
                                         </StyledTableCell>
                                     ) : (
                                         <StyledTableCell align="left">

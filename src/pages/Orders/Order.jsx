@@ -5,6 +5,7 @@ import Header from "../../components/PageHeader/Header";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { safalBackend } from "../../constants/apiRoutes";
+import BlueButton from "../../components/Buttons/BlueButton";
 function Order() {
     const { id } = useParams();
     const [data, setData] = useState({});
@@ -109,6 +110,15 @@ function Order() {
             }
         }
     };
+    const handleRecalculate = async () => {
+        console.log("Recalculating agent pricing...");
+       const res = await axios.get(`${safalBackend}/order/recalculate-amount/${id}`);
+      if(res.data.success){
+        toast.success(res.data.message);
+        fetchData();
+
+      }
+    }
     return (
         <div className={styles.parentDiv}>
             <Header heading="Order" />
@@ -165,6 +175,11 @@ function Order() {
                                 </li>
                             ))}
                         </ul>
+
+                        <div>
+                            <p>After updating all agent pricing, click to recalculate order amount</p>
+                          <BlueButton text="Recalculate" onClickFunction={handleRecalculate} />
+                        </div>
                     </div>
                 </div>
             </div>
