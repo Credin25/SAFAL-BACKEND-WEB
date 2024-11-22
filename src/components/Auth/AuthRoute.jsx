@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+
 const AuthRoute = ({ element }) => {
-    const value = Cookies.get('accessToken');
     const navigate = useNavigate();
-    const [accessToken] = useState(value);
     useEffect(() => {
-        if (!accessToken) {
+        const refreshToken = Cookies.get('refreshToken');
+        if (!refreshToken) {
             navigate('/', { replace: true });
         }
-    }, [accessToken, navigate]);
+    }, [navigate]);
 
-    return accessToken ? element : null;
+    return Cookies.get('refreshToken') ? element : null;
 };
 
 AuthRoute.propTypes = {
@@ -20,5 +20,3 @@ AuthRoute.propTypes = {
 };
 
 export default AuthRoute;
-
-

@@ -24,15 +24,8 @@ import SafalOrder from "../pages/RetailOrders/SafalOrder";
 import NewRetailOrder from "../pages/RetailOrders/NewRetailOrder";
 import Home from "../pages/Home/Home";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-
 const MainHome = () => {
-  const [, forceUpdate] = useState();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    forceUpdate({});
-  }, []);
 
   return (
     <Routes>
@@ -41,7 +34,6 @@ const MainHome = () => {
         element={
           <LoginPage
             onLoginSuccess={() => {
-              // forceUpdate({});
               navigate("/insurance");
             }}
           />
@@ -49,7 +41,7 @@ const MainHome = () => {
       />
       <Route element={<AuthenticatedLayout />}>
         {/* Home */}
-        <Route path="/home"  element={<Home />}  />
+        <Route path="/home" element={<Home />} />
         {/* insurance */}
         <Route
           path="/insurance"
