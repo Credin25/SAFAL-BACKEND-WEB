@@ -55,7 +55,7 @@ export default function ViewProduct() {
 
         try {
             const res = await axios.patch(
-                `:${safalBackend}/product/${id}`,
+                `${safalBackend}/product/${id}`,
                 form,
                 {
                     headers: {
@@ -169,8 +169,7 @@ export default function ViewProduct() {
                             />
                             <br />
                             <label className={styles.label}>Upload Product Image</label>
-                            <input type='file' onChange={
-                                handleImageChange} accept="image/*" className={styles.inputField} />
+                            <input type='file' onChange={handleImageChange} accept="image/*" className={styles.inputField} />
                             <button className={styles.saveButton} onClick={handleSave}>Save</button>
                         </div>
                     ) : (
