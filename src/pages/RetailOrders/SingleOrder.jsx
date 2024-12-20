@@ -57,22 +57,28 @@ const SafalOrder = () => {
     function formatDateAndTime(orderDate) {
         // Convert the order date to a JavaScript Date object
         const dateObj = new Date(orderDate);
-
-        // Adjust the time to IST (UTC+5:30)
-        dateObj.setHours(dateObj.getHours() + 5.5);
-
-        // Format the date and time in dd-mm-yyyy HH:MM:SS format
-        const formattedDate = dateObj.toLocaleDateString('en-IN', {
+    
+        // Format the date in dd-mm-yyyy
+        const date = dateObj.toLocaleDateString('en-IN', {
             day: '2-digit',
             month: '2-digit',
-            year: 'numeric',
+            year: 'numeric'
+        });
+    
+        // Format the time in HH:MM:SS
+        const time = dateObj.toLocaleTimeString('en-IN', {
             hour: '2-digit',
             minute: '2-digit',
-            second: '2-digit'
+            second: '2-digit',
+            hour12: false
         });
-
-        return formattedDate;
-    };
+    
+        return `${date} ${time}`;
+    }
+    
+    // Example usage:
+    console.log(formatDateAndTime("2024-12-20T10:00:00Z"));
+    
     console.log(data?.order);
     return (
         <div className={styles.parentDiv}>
