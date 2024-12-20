@@ -195,10 +195,10 @@ const NewRetailOrder = () => {
                     source: "STAFF",
                     orderedBy: email,
                     orderCategory: "RETAIL",
-                    customer: { ...customerDetails }, // Include customer details
+                    customer: { ...customerDetails },
                 };
-
-                const response = await axios.post(`${safalBackend}/order`, orderData);
+                console.log(orderData);
+                const response = await axios.post(`${safalBackend}/order/add/new/order`, orderData);
                 if (response.data.success) {
                     toast.success("Order placed successfully!");
                     // Reset all forms
@@ -357,7 +357,7 @@ const NewRetailOrder = () => {
                         </Button>
                     </Box>
                 </Modal>
-               
+
 
             </div>
             {/* Payment Modal */}
@@ -388,40 +388,40 @@ const NewRetailOrder = () => {
                     </Button>
                 </Box>
             </Modal>
-             {/* customer details modal */}
-             <Modal open={customerDetailsModalOpen}>
-                    <Box sx={{ ...style, width: 300 }}>
-                        <h3>Customer Details</h3>
-                        <TextField
-                            label="Customer Name"
-                            name="customerName"
-                            fullWidth
-                            variant="outlined"
-                            value={customerDetails.customerName}
-                            onChange={handleCustomerDetailsChange}
-                            error={!!customerErrors.customerName}
-                            helperText={customerErrors.customerName}
-                            sx={{ marginBottom: "10px" }}
-                        />
-                        <TextField
-                            label="Customer Mobile Number"
-                            name="customerMobile"
-                            fullWidth
-                            variant="outlined"
-                            value={customerDetails.customerMobile}
-                            onChange={handleCustomerDetailsChange}
-                            error={!!customerErrors.customerMobile}
-                            helperText={customerErrors.customerMobile}
-                            sx={{ marginBottom: "10px" }}
-                        />
-                        <Button
-                            onClick={handleCustomerDetailsSubmit}
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting ? "Processing..." : "Submit"}
-                        </Button>
-                    </Box>
-                </Modal>
+            {/* customer details modal */}
+            <Modal open={customerDetailsModalOpen}>
+                <Box sx={{ ...style, width: 300 }}>
+                    <h3>Customer Details</h3>
+                    <TextField
+                        label="Customer Name"
+                        name="customerName"
+                        fullWidth
+                        variant="outlined"
+                        value={customerDetails.customerName}
+                        onChange={handleCustomerDetailsChange}
+                        error={!!customerErrors.customerName}
+                        helperText={customerErrors.customerName}
+                        sx={{ marginBottom: "10px" }}
+                    />
+                    <TextField
+                        label="Customer Mobile Number"
+                        name="customerMobile"
+                        fullWidth
+                        variant="outlined"
+                        value={customerDetails.customerMobile}
+                        onChange={handleCustomerDetailsChange}
+                        error={!!customerErrors.customerMobile}
+                        helperText={customerErrors.customerMobile}
+                        sx={{ marginBottom: "10px" }}
+                    />
+                    <Button
+                        onClick={handleCustomerDetailsSubmit}
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? "Processing..." : "Submit"}
+                    </Button>
+                </Box>
+            </Modal>
         </div >
     );
 };
