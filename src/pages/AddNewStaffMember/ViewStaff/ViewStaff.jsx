@@ -49,7 +49,7 @@ function ViewStaff() {
     }, [allData])
 
     const columns = [
-        "Name", "Email", "StaffID", "Mobile", "CreatedBy", "Branch", "PanNumber"
+        "Name", "Email", "StaffID", "Mobile", "CreatedBy", "Branch"
     ];
     const serachFunction = async (searchStr) => {
 
