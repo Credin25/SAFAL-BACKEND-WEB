@@ -50,6 +50,7 @@ const TableComponent = ({ rows, headers }) => {
     
             if (response.data.success) {
                 toast.success(response.data.message);
+                toast.success(response.data.data.link)
             } else {
                 toast.error("Payment failed: " + response.data.message);
             }
