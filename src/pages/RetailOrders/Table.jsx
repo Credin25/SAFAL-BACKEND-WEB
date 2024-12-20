@@ -54,6 +54,13 @@ const TableComponent = ({ rows, headers }) => {
         </>
       );
     }
+    if (header.toLowerCase() === 'action' && row.ordertable === 'STAFF') {
+      return (
+        <>
+          <EditButton text="Edit" onClickFunction={() => handleEdit(row.safalorderuniqueid)} />
+        </>
+      );
+    }
     else if (header.toLowerCase() === 'orderstatus') {
       return (
         <>

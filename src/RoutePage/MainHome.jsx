@@ -20,7 +20,7 @@ import ViewStaff from "../pages/AddNewStaffMember/ViewStaff/ViewStaff";
 import SafalUsers from "../pages/Customers/ViewAllSafalUsers/ViewSafalUsers";
 import Customer from "../pages/Customers/ViewSingleUser/Customer";
 import AgentDetails from "../pages/Agents/AgentCompleteDetails/AgentDetails";
-import SafalOrder from "../pages/RetailOrders/SafalOrder";
+import SafalOrder from "../pages/RetailOrders/SingleOrder";
 import NewRetailOrder from "../pages/RetailOrders/NewRetailOrder";
 import Home from "../pages/Home/Home";
 import { Routes, Route, useNavigate } from "react-router-dom";
@@ -34,14 +34,14 @@ const MainHome = () => {
         element={
           <LoginPage
             onLoginSuccess={() => {
-              navigate("/insurance");
+              navigate("/home");
             }}
           />
         }
       />
       <Route element={<AuthenticatedLayout />}>
         {/* Home */}
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<AuthRoute element={<Home />} />} />
         {/* insurance */}
         <Route
           path="/insurance"

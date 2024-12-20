@@ -8,10 +8,13 @@ import BlueButton from "../../../components/Buttons/BlueButton";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { safalBackend } from "../../../constants/apiRoutes";
+import { useDebounce } from 'use-debounce';
 const SafalUsers = () => {
     const [allData, setAllData] = useState([]);
     const [rows, setRows] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
     const fetchData = async () => {
         try {
             const response = await axios.get(`${safalBackend}/users/get-all-users?page=${pageNumber}`);
@@ -40,14 +43,20 @@ const SafalUsers = () => {
     useEffect(() => {
         fetchData();
     }, [pageNumber]);
-
+    useEffect(() => {
+        if (debouncedSearchTerm) {
+            serachFunction(debouncedSearchTerm);
+        } else {
+            fetchData();
+        }
+    }, [debouncedSearchTerm, pageNumber]);
     const columns = ["phone", "name", "PAN", "email", "aadhar", "action"];
     const serachFunction = async (searchStr) => {
         try {
             const response = await axios.post(`${safalBackend}/users/safal/user/search`, {
                 "searchQuery": searchStr
             });
-            if(response.data.success){
+            if (response.data.success) {
                 const allsafalUsers = response?.data?.data?.map(user => ({
                     phone: user?.phone,
                     id: user?._id,
@@ -83,14 +92,21 @@ const SafalUsers = () => {
             <Header heading="Safal Customers" />
             <div className={styles.container}>
                 <div className={styles.topHeader}>
-                    <FullWidthTextField placeholder="Search By Phone Number / Pan Number / Name" onSearch={serachFunction} />
+                    <FullWidthTextField
+                        placeholder="Search By Phone Number / Pan Number / Name"
+                        onSearch={(value) => setSearchTerm(value)}
+                    />
                 </div>
                 <TableComponent rows={rows} headers={columns} />
 
                 <div className={styles.buttonDiv}>
                     <GreyButton text="Back" onClickFunction={() => { }} />
                     <div className={styles.pageDiv}>
-                        <BlueButton text="Previous" onClickFunction={goToPreviousPage} />
+                        <BlueButton
+                            text="Previous"
+                            onClickFunction={goToPreviousPage}
+                            disabled={pageNumber === 1}
+                        />
                         <span className={styles.pageNo}>{pageNumber}</span>
                         <BlueButton text="Next" onClickFunction={goToNextPage} />
                     </div>

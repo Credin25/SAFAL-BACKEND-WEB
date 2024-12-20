@@ -18,7 +18,7 @@ function Home() {
           <h2>Initiate New Payment</h2>
           <button onClick={handleModalOpen}>Initiate</button>
         </div> */}
-        <h1>Home Page</h1>
+        <h1>Welcome</h1>
       </div>
       <Modal
         open={ispaymentModalOpen}

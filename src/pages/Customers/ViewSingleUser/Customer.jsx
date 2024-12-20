@@ -32,7 +32,7 @@ function Customer() {
   const formatDate = (date) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(date).toLocaleDateString('en-US', options);
-};
+  };
 
   return (
     <div className={styles.parentDiv}>
@@ -57,10 +57,8 @@ function Customer() {
             </div>
           </div>
         </div>
-
         <br />
         <br></br>
-
         {
           customer?.Orders?.length > 0 ? <div className={styles.table}>
             <h3 style={{ padding: '0 20px' }}>Order History</h3>
@@ -74,7 +72,7 @@ function Customer() {
                 </tr>
               </thead>
               <tbody>
-                {customer?.Orders?.map((order, index) => (
+                {customer?.Orders?.slice().reverse().map((order, index) => (
                   <tr key={index}>
                     <td className={styles.row}>{order?.orderId}</td>
                     <td className={styles.row}>{formatDate(order?.orderDate)}</td>

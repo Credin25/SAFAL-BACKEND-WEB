@@ -15,11 +15,16 @@ import {
 } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import EditButton from "../../components/Buttons/EditButton";
+import BlueButton from "../../components/Buttons/BlueButton";
+import GreyButton from "../../components/Buttons/GreyButton";
+import CircularProgress from '@mui/material/CircularProgress';
 function SellOrder() {
   const navigate = useNavigate();
   const [rows, setRows] = useState([]);
   const [allData, setAllData] = useState([]);
   const [filteredRows, setFilteredRows] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     source: 'all',
     status: 'all',
@@ -63,7 +68,9 @@ function SellOrder() {
         if (response.data.success) {
           setAllData(response.data.data);
         }
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         if (error.response?.data?.message) {
           toast.error(error.response.data.message);
         } else {
@@ -71,7 +78,6 @@ function SellOrder() {
         }
       }
     }
-
     fetchData();
   }, []);
   useEffect(() => {
@@ -96,7 +102,7 @@ function SellOrder() {
 
   useEffect(() => {
     let filteredData = [...rows];
-
+  
     // Filter by source
     if (filters.source !== 'all') {
       filteredData = filteredData.filter((singleData) => {
@@ -110,6 +116,7 @@ function SellOrder() {
         return true;
       });
     }
+  
     // Filter by timeframe
     if (filters.timeframe !== 'all') {
       const today = new Date();
@@ -125,14 +132,18 @@ function SellOrder() {
         return true;
       });
     }
-    // Debug status filter logic
+  
+    // Filter by status
     if (filters.status !== 'all') {
       filteredData = filteredData.filter((singleData) => {
         return singleData.orderstatus === filters.status;
       });
     }
+  
     setFilteredRows(filteredData);
+    setPageNumber(1); // Reset to the first page whenever filters are applied
   }, [filters, rows]);
+  
 
   const columns = [
     "Date", "orderID", "orderTable", "agentName", "orderStatus", "amount", "customerName", "customerNumber", "orderedItems", "paymentmode", "action"
@@ -144,7 +155,18 @@ function SellOrder() {
       [filterType]: event.target.value
     }));
   };
+  const goToPreviousPage = () => {
+    if (pageNumber > 1) {
+      setPageNumber(prev => prev - 1);
+    }
+  };
 
+  const goToNextPage = () => {
+    setPageNumber(prev => prev + 1);
+  };
+  const itemsPerPage = 10;
+  const paginatedRows = filteredRows.slice((pageNumber - 1) * itemsPerPage, pageNumber * itemsPerPage);
+  
   return (
     <div className={styles.parentDiv}>
       <Header heading="Retail Orders" />
@@ -175,7 +197,27 @@ function SellOrder() {
             ))}
           </FilterContainer>
         </div>
-        <TableComponent headers={columns} rows={filteredRows} />
+        {loading && <CircularProgress />}
+
+        {!loading && <>
+          <TableComponent headers={columns} rows={paginatedRows} />
+          {!loading && filteredRows.length === 0 && (
+            <div className={styles.noDataMessage}>
+              No orders match the selected filters.
+            </div>
+          )}
+          <div className={styles.buttonDiv}>
+            <GreyButton text="Back" onClickFunction={() => { }} />
+            <div className={styles.pageDiv}>
+              <BlueButton text="Previous" onClickFunction={goToPreviousPage}  disabled={pageNumber === 1}  />
+              <span className={styles.pageNo}>{pageNumber}</span>
+              <BlueButton text="Next" onClickFunction={goToNextPage} disabled={pageNumber * itemsPerPage >= filteredRows.length}/>
+            </div>
+          </div>
+        </>
+        }
+
+
       </div>
     </div>
   )

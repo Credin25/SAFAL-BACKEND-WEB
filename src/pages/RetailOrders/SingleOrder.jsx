@@ -14,6 +14,7 @@ const SafalOrder = () => {
         try {
             const response = await axios.get(`${safalBackend}/order/${id}`);
             if (response.data.success) {
+
                 setData(response.data.data);
                 setStatus(response.data.data.order.orderStatus);
             }
@@ -72,46 +73,15 @@ const SafalOrder = () => {
 
         return formattedDate;
     };
-    const handleAgentPricing = (price, productId) => {
-        setAgentPricing(prevPricing => 
-            prevPricing.map(item => 
-                item.productId === productId 
-                    ? { ...item, price: Number(price) }  
-                    : item  
-            )
-        );
-    };
-    const updateAgentPricing = async (productId) => {
-        const productPricing = agentPricing.find(item => item.productId === productId);
-        if (!productPricing) return;
-
-        try {
-          const body = {
-            productId: productPricing.productId,
-            price: productPricing.price,
-            orderId: id,
-          };
-          const responce = await axios.patch(`${safalBackend}/order/update/agent-price`, body);
-          if(responce.data.success){
-            toast.success(responce.data.message);
-            fetchData();
-          }
-        } catch (error) {
-            if (error.response?.data?.message) {
-                toast.error(error.response.data.message);
-            } else {
-                toast.error("Error while updating agent pricing. Please try again later.");
-            }
-        }
-    };
+    console.log(data?.order);
     return (
         <div className={styles.parentDiv}>
             <Header heading="Order" />
             <div className={styles.container}>
                 <div className={styles.userDetails} >
                     <div>
-                        <p> <span>Name:</span> {data?.user?.firstName} {data?.user?.lastName} </p>
-                        <p> <span>Phone:</span> {data?.user?.phone} </p>
+                        <p> <span>Name:</span> {data?.user?.firstName} {data?.user?.lastName} {data?.order?.user?.customerName} </p>
+                        <p> <span>Phone:</span> {data?.user?.phone} {data?.order?.user?.customerMobile} </p>
                     </div>
                     <div>
                         <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="user" width={100}></img>
@@ -123,6 +93,7 @@ const SafalOrder = () => {
                         <p>Source: {data?.order?.source}</p>
                         <p>Amount: {data?.order?.amount}</p>
                         <p>Current Order Status:  {data?.order?.orderStatus}</p>
+                        {data?.order?.orderedBy && <p>Order By: {data?.order?.orderedBy}</p>}
                         <p>Order Date: {formatDateAndTime(data?.order?.createdAt)}</p>
 
                     </div>

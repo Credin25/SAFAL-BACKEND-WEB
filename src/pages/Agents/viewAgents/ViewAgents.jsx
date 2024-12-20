@@ -8,41 +8,49 @@ import EditButton from "../../../components/Buttons/EditButton";
 import FullWidthTextField from "../../../components/SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { safalBackend } from "../../../constants/apiRoutes";
+import { useDebounce } from 'use-debounce';
 function ViewAgents() {
   const navigate = useNavigate();
   const [allData, setAllData] = useState([]);
   const [rows, setRows] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${safalBackend}/agent/all`, {withCredentials: true});
-        if (response.data.success) {
-          setAllData(response.data?.data);
-        }
-      } catch (error) {
-        if(error.response?.data?.message){
-          toast.error(error.response.data.message);
-        }else{
-          toast.error("Error while fetching agents. Please try again later");
-        }
+  const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${safalBackend}/agent/all`, { withCredentials: true });
+      if (response.data.success) {
+        setAllData(response.data?.data);
+      }
+    } catch (error) {
+      if (error.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Error while fetching agents. Please try again later");
       }
     }
-
+  }
+  useEffect(() => {
     fetchData();
   }, []);
   useEffect(() => {
     const rows = allData.map((Agent) => {
-      console.log(Agent);
       const obj = {
       }
-      obj.name = `${Agent?.firstName} ${Agent?.lastName}`;
-      obj.phone = Agent?.phone;
-      obj.pannumber = Agent?.panNumber;
-      obj.id = Agent?._id;
+      obj.name = `${Agent?.firstName} ${Agent?.lastName}` || " ";
+      obj.phone = Agent?.phone || " ";
+      obj.pannumber = Agent?.panNumber || "";
+      obj.id = Agent?._id || " ";
       return obj;
     });
     setRows(rows);
-  }, [allData])
+  }, [allData]);
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      serachFunction(debouncedSearchTerm);
+    } else {
+      fetchData();
+    }
+  }, [debouncedSearchTerm]);
 
   const columns = [
     "Name", "Phone", "PanNumber", "Action"
@@ -57,9 +65,9 @@ function ViewAgents() {
         setAllData(response.data.data);
       }
     } catch (error) {
-      if(error.response?.data?.message){
+      if (error.response?.data?.message) {
         toast.error(error.response.data.message);
-      }else{
+      } else {
         toast.error("Error while fetching agents. Please try again later");
       }
     }
@@ -73,7 +81,11 @@ function ViewAgents() {
       <Header heading="All Agents" />
       <div className={styles.container}>
         <div className={styles.topHeader}>
-          <FullWidthTextField placeholder="Search By Phone Number / Pan Number / Name" onSearch={serachFunction} />
+          <FullWidthTextField
+            placeholder="Search By Phone Number / Pan Number / Name"
+            onSearch={(value) => setSearchTerm(value)}
+          />
+
           <div>
             <EditButton text="New Agent" onClickFunction={addNewAgent} />
           </div>
