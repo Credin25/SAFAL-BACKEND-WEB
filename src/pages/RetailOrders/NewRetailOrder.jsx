@@ -36,7 +36,7 @@ const NewRetailOrder = () => {
         pincode: "",
         addressLine1: "",
         addressLine2: "",
-        paymentMethod: "ONLINE"
+        paymentMethod: "COD"
 
     });
     const [customerDetailsModalOpen, setCustomerDetailsModalOpen] = useState(false);
@@ -197,7 +197,7 @@ const NewRetailOrder = () => {
                     orderCategory: "RETAIL",
                     customer: { ...customerDetails },
                 };
-                console.log(orderData);
+                
                 const response = await axios.post(`${safalBackend}/order/add/new/order`, orderData);
                 if (response.data.success) {
                     toast.success("Order placed successfully!");
@@ -210,7 +210,7 @@ const NewRetailOrder = () => {
                         pincode: "",
                         addressLine1: "",
                         addressLine2: "",
-                        paymentMethod: "ONLINE",
+                        paymentMethod: "COD",
                     });
                     setCustomerDetails({ customerName: "", customerMobileNumber: "" });
                     navigate("/sell");
@@ -377,7 +377,7 @@ const NewRetailOrder = () => {
                         }))}
                         sx={{ marginBottom: '10px' }}
                     >
-                        <MenuItem value="ONLINE">Online</MenuItem>
+                        <MenuItem>Select Payment Method</MenuItem>
                         <MenuItem value="COD">Cash on Delivery</MenuItem>
                     </Select>
                     <Button
