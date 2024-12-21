@@ -48,7 +48,6 @@
     margin: 20px;
     padding: 20px;
     border-radius: 10px;
-    cursor: pointer;
     transition: background-color 0.3s ease-in-out;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for a subtle elevation */
 }

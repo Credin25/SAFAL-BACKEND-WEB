@@ -1,4 +1,3 @@
-
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,14 +6,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import EditButton from '../../components/Buttons/EditButton';
-import DeleteButton from '../../components/Buttons/DeleteButton';
-import axios from 'axios';
-import { useNavigate } from "react-router-dom";
-import { safalBackend } from '../../constants/apiRoutes';
-import { toast } from 'react-toastify';
-// eslint-disable-next-line
+import EditButton from '../../../components/Buttons/EditButton';
+import { useNavigate } from 'react-router-dom';
 const TableComponent = ({ rows, headers }) => {
+    const navigate = useNavigate();
     const StyledTableCell = styled(TableCell)(() => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: '#b9d8f7',
@@ -34,24 +29,10 @@ const TableComponent = ({ rows, headers }) => {
             border: 0,
         },
     }));
-    const navigate = useNavigate();
 
-    const handleEdit = (id) => {
-       return navigate(`/agent/${id}`)
-    }
-    const handleDelete =async (id) => {
-      try{
-        const res = await axios.delete(`${safalBackend}/agent/${id}`);
-      if(res.data.success){
-        window.location.reload();
-      }
-      }catch(error){
-        if(error.response?.data?.message){
-          toast.error(error.response.data.message);
-        }else{
-          toast.error('Error while deleting. Please try again later');
-        }
-      }
+    const handleOnClick = (id) => {
+        console.log(id);
+        return navigate(`/safal/user/${id}`);
     }
     return (
         <TableContainer component={Paper}>
@@ -74,9 +55,10 @@ const TableComponent = ({ rows, headers }) => {
                                     {/* If the header is 'Action', create buttons */}
                                     {header.toLowerCase() === 'action' ? (
                                         <>
-                                            <EditButton text="Edit" onClickFunction={() => handleEdit(row?.id)} />
-                                            <DeleteButton text="Delete" onClickFunction={() => {handleDelete(row?.id) }} />
+                                            <EditButton text="View" onClickFunction={() => handleOnClick(row.id)} />
+
                                         </>
+
                                     ) : (
                                         row[header.toLowerCase()]
                                     )}

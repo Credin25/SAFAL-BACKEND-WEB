@@ -14,7 +14,7 @@ function ViewSingleInsurance() {
         try {
             const res = await axios.get(`${safalBackend}/insurance/${id}`);
             if (res.data.success) {
-                setInsuranceInfo(res.data.data);
+                setInsuranceInfo(res?.data?.data);
                 setLoading(false);
             }
         } catch (error) {

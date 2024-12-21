@@ -12,8 +12,8 @@ export default function ViewProduct() {
     const [formData, setFormData] = useState({
         description: '',
         safalAppPrice: '',
-        agentAppPrice: '',
-        safalBackendPrice: '',
+        // agentAppPrice: '',
+        // safalBackendPrice: '',
         stockAvailable: ''
     });
     const [slideIndex, setSlideIndex] = useState(0);
@@ -25,11 +25,11 @@ export default function ViewProduct() {
             if (response.data.success) {
                 setProduct(response.data.data);
                 setFormData({
-                    description: response.data.data.description,
-                    safalAppPrice: response.data.data.price.safalAppPrice,
-                    agentAppPrice: response.data.data.price.agentAppPrice,
-                    safalBackendPrice: response.data.data.price.safalBackendPrice,
-                    stockAvailable: response.data.data.stockAvailable
+                    description: response?.data?.data?.description,
+                    safalAppPrice: response?.data?.data?.price?.safalAppPrice,
+                    // agentAppPrice: response?.data?.data?.price?.agentAppPrice,
+                    // safalBackendPrice: response?.data?.data?.price?.safalBackendPrice,
+                    stockAvailable: response?.data?.data?.stockAvailable
                 });
             }
         } catch (error) {
@@ -55,7 +55,7 @@ export default function ViewProduct() {
 
         try {
             const res = await axios.patch(
-                `:${safalBackend}/product/${id}`,
+                `${safalBackend}/product/${id}`,
                 form,
                 {
                     headers: {
@@ -80,8 +80,8 @@ export default function ViewProduct() {
                 description: formData.description,
                 price: {
                     safalAppPrice: formData.safalAppPrice,
-                    agentAppPrice: formData.agentAppPrice,
-                    safalBackendPrice: formData.safalBackendPrice
+                    // agentAppPrice: formData.agentAppPrice,
+                    // safalBackendPrice: formData.safalBackendPrice
                 },
                 stockAvailable: parseInt(formData.stockAvailable)
             });
@@ -143,7 +143,7 @@ export default function ViewProduct() {
                                 onChange={handleInputChange}
                                 className={styles.inputField}
                             />
-                            <label className={styles.label}>AGENT APP Price:</label>
+                            {/* <label className={styles.label}>AGENT APP Price:</label>
                             <input
                                 type="text"
                                 name="agentAppPrice"
@@ -158,7 +158,7 @@ export default function ViewProduct() {
                                 value={formData.safalBackendPrice}
                                 onChange={handleInputChange}
                                 className={styles.inputField}
-                            />
+                            /> */}
                             <label className={styles.label}>Update Available Stock:</label>
                             <input
                                 type="text"
@@ -169,8 +169,7 @@ export default function ViewProduct() {
                             />
                             <br />
                             <label className={styles.label}>Upload Product Image</label>
-                            <input type='file' onChange={
-                                handleImageChange} accept="image/*" className={styles.inputField} />
+                            <input type='file' onChange={handleImageChange} accept="image/*" className={styles.inputField} />
                             <button className={styles.saveButton} onClick={handleSave}>Save</button>
                         </div>
                     ) : (
@@ -184,8 +183,8 @@ export default function ViewProduct() {
                             <div className={styles.prices}>
                                 <h3>Selling Prices:</h3>
                                 <p>SAFAL APP: ₹{Product?.price?.safalAppPrice}</p>
-                                <p>AGENT APP: ₹{Product?.price?.agentAppPrice}</p>
-                                <p>OUR STAFF: ₹{Product?.price?.safalBackendPrice}</p>
+                                {/* <p>AGENT APP: ₹{Product?.price?.agentAppPrice}</p>
+                                <p>OUR STAFF: ₹{Product?.price?.safalBackendPrice}</p> */}
                             </div>
 
                             <div className={styles.imageContainer}>

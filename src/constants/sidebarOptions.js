@@ -4,19 +4,31 @@ import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
 import OutboxIcon from '@mui/icons-material/Outbox';
 import StoreIcon from '@mui/icons-material/Store';
+import Groups2Icon from '@mui/icons-material/Groups2';
+import { HomeRounded } from '@mui/icons-material';
 const sidebarOptions = [
     {
-        label: "Agents",
+        label:'Home',
+        path: '/home',
+        icon: HomeRounded
+    },
+    {
+        label: 'Agents',
         path: '/agents',
         icon: GroupIcon
     },
     {
+        label: 'Safal Users',
+        path:'/safal/users',
+        icon: Groups2Icon
+    },
+    {
         label: 'Insurance',
-        path: '/',
+        path: '/insurance',
         icon: HealthAndSafetyIcon
     },
     {
-        label: 'Our Orders',
+        label: 'Bulk Order',
         path: '/order',
         icon: MoveToInboxIcon
     }, {
@@ -27,7 +39,7 @@ const sidebarOptions = [
     },
     {
 
-        label: 'Selling Orders',
+        label: 'Retail Orders',
         path: '/sell',
         icon: OutboxIcon
     },

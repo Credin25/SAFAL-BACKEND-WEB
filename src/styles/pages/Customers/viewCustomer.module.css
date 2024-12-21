@@ -14,13 +14,16 @@
     align-items: center;
     width: 100%;
     flex-direction: column;
-    background-color: rgb(196, 195, 195);
+    background-color: rgb(247, 247, 247);
+    /* padding: 5px; */
 }
-.button {
+.topHeader{
+    display: flex;
     width: 100%;
-    padding: 20px 10px;
-    text-align: end;
+    justify-content: space-around;
+    align-items: center;
 }
+
 .buttonDiv{
     display: flex;
     gap: 20px;
@@ -30,11 +33,10 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
-    margin-bottom:10px ;
 }
 .pageDiv{
     display: flex;
-    gap: 12px;
+    gap: 10px;
     align-items: flex-end;
     
 }

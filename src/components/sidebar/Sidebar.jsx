@@ -19,7 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import sidebarOptions from '../../constants/sidebarOptions';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -96,8 +96,11 @@ export default function Sidebar({ children }) {
         setOpen(false);
     };
     const handleLogout = () => {
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
         localStorage.clear();
-        navigate('/login');
+
+        navigate('/');
     }
     return (
         <Box sx={{ display: 'flex' }}>

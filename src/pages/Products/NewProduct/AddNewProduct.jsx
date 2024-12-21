@@ -61,11 +61,11 @@ function AddNewProduct() {
                         <TextField label="MRP" sx={{ width: "30%" }} required value={data.MRP} onChange={handleInput} name="MRP" />
                     </div>
                     <div className={styles.Formrow}>
-                        <TextField label="Price for Agent App" sx={{ width: "30%" }} required value={data.agentAppPrice} onChange={handleInput} name="agentAppPrice" />
+                        {/* <TextField label="Price for Agent App" sx={{ width: "30%" }} required value={data.agentAppPrice} onChange={handleInput} name="agentAppPrice" /> */}
                         <TextField label="Price for SAFAL App" sx={{ width: "30%" }} required value={data.safalAppPrice} onChange={handleInput} name="safalAppPrice" />
                     </div>
                     <div className={styles.Formrow}>
-                        <TextField label="Price for our Staff" sx={{ width: "30%" }} required value={data.safalBackendPrice} onChange={handleInput} name="safalBackendPrice" />
+                        {/* <TextField label="Price for our Staff" sx={{ width: "30%" }} required value={data.safalBackendPrice} onChange={handleInput} name="safalBackendPrice" /> */}
 
                     </div>
                     <div className={styles.Formrow}>

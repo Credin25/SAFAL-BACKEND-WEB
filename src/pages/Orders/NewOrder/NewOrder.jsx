@@ -73,12 +73,14 @@ function AddNewOrder() {
     };
 
     const handleQuantityChange = (productId, quantity) => {
+        if (quantity < 1) return;
         setSelectedProducts(
             selectedProducts.map(product =>
                 product._id === productId ? { ...product, quantity: parseInt(quantity) } : product
             )
         );
     };
+    
 
     const handleRemoveProduct = (productId) => {
         setSelectedProducts(selectedProducts.filter(product => product._id !== productId));
@@ -95,7 +97,7 @@ function AddNewOrder() {
 
     const handleOrderButton = async () => {
         // Calculate the total price of selected products 
-        const totalAmount = selectedProducts.reduce((acc, prod) => acc + (prod.price.safalBackendPrice * prod.quantity), 0);
+        const totalAmount = selectedProducts.reduce((acc, prod) => acc + (prod.MRP * prod.quantity), 0);
 
         let body = {
             orderedFor: agent,
@@ -104,6 +106,7 @@ function AddNewOrder() {
                 quantity: prod.quantity
             })),
             source: "STAFF",
+            orderCategory:"BULK",
             deliveryAddress: {},
             deliveryContactNumber: 0, 
             orderedBy: email, 
@@ -171,7 +174,7 @@ function AddNewOrder() {
                         <form className={styles.form}>
                             <h2>Choose Products you want to order</h2>
                             <select onChange={handleProductChange}>
-                                <option value="">Select a product</option>
+                                <option>Select a product</option>
                                 {
                                     allProducts.map(product => (
                                         <option key={product._id} value={product._id}>

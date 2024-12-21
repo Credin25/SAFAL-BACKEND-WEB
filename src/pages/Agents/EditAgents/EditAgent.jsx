@@ -63,7 +63,7 @@ function EditAgent() {
             const response = await axios.put(`${safalBackend}/agent/${id}`, initialData);
             if (response.data.success) {
                 toast.success("Agent updated successfully!");
-                setInitialData(response.data.data);
+                setInitialData(response?.data?.data);
                 navigate('/agents')
             } else {
                 toast.error("Failed to update agent.");
@@ -97,107 +97,6 @@ function EditAgent() {
                         />
                     </div>
                     <div className={styles.Formrow}>
-                        <TextField
-                            label="Pan Number"
-                            sx={{ width: "30%" }}
-                            required
-                            value={initialData?.panNumber || ""}
-                            onChange={handleInput}
-                            name="panNumber"
-                            disabled
-                        />
-                        <TextField
-                            label="Aadhar Number"
-                            sx={{ width: "30%" }}
-                            required
-                            value={initialData?.aadharNumber || ""}
-                            onChange={handleInput}
-                            name="aadharNumber"
-                        />
-                    </div>
-                    <div className={styles.Formrow}>
-                        <TextField
-                            label="Voter Id"
-                            sx={{ width: "30%" }}
-                            required
-                            value={initialData?.voterId || ""}
-                            onChange={handleInput}
-                            name="voterId"
-                        />
-                        <TextField
-                            label="Mobile Number"
-                            sx={{ width: "30%" }}
-                            required
-                            value={initialData?.phone || ""}
-                            onChange={handleInput}
-                            name="phone"
-                            disabled
-                        />
-                    </div>
-                    <div className={styles.Formrow}>
-                        <TextField
-                            label="Email"
-                            sx={{ width: "30%" }}
-                            required
-                            value={initialData?.email || ""}
-                            onChange={handleInput}
-                            name="email"
-                        />
-                        <TextField
-                            label="Password"
-                            sx={{ width: "30%" }}
-                            required
-                            value={initialData?.password || ""}
-                            onChange={handleInput}
-                            name="password"
-                            type="password"
-                        />
-                    </div>
-                    <div className={styles.Formrow}>
-                        <TextField
-                            label="Pincode"
-                            sx={{ width: "30%" }}
-                            required
-                            value={initialData?.address?.pinCode || ""}
-                            onChange={handleAddressInput}
-                            name="pinCode"
-                        />
-                        <TextField
-                            label="City"
-                            sx={{ width: "30%" }}
-                            required
-                            value={initialData?.address?.city || ""}
-                            onChange={handleAddressInput}
-                            name="city"
-                        />
-                    </div>
-                    <div className={styles.Formrow}>
-                        <TextField
-                            label="State"
-                            sx={{ width: "30%" }}
-                            required
-                            value={initialData?.address?.state || ""}
-                            onChange={handleAddressInput}
-                            name="state"
-                        />
-                        <TextField
-                            label="District"
-                            sx={{ width: "30%" }}
-                            required
-                            value={initialData?.address?.district || ""}
-                            onChange={handleAddressInput}
-                            name="district"
-                        />
-                    </div>
-                    <div className={styles.Formrow}>
-                        <TextField
-                            label="Address Line 1"
-                            sx={{ width: "30%" }}
-                            required
-                            value={initialData?.address?.addressLine1 || ""}
-                            onChange={handleAddressInput}
-                            name="addressLine1"
-                        />
                         <FormControl sx={{ width: "30%" }}>
                             <InputLabel id="gender-select-label">Gender</InputLabel>
                             <Select
@@ -211,6 +110,94 @@ function EditAgent() {
                                 <MenuItem value="other">Other</MenuItem>
                             </Select>
                         </FormControl>
+                        <TextField
+                            label="Pan Number"
+                            sx={{ width: "30%" }}
+                            required
+                            value={initialData?.panNumber || ""}
+                            onChange={handleInput}
+                            name="panNumber"
+                            disabled
+                        />
+
+                    </div>
+                    <div className={styles.Formrow}>
+                        <TextField
+                            label="Mobile Number"
+                            sx={{ width: "30%" }}
+                            required
+                            value={initialData?.phone || ""}
+                            onChange={handleInput}
+                            name="phone"
+                            disabled
+                        />
+                        <TextField
+                            label="Email"
+                            sx={{ width: "30%" }}
+                            required
+                            value={initialData?.email || ""}
+                            onChange={handleInput}
+                            name="email"
+                        />
+
+                    </div>
+                    <div className={styles.Formrow}>
+                        <TextField
+                            label="Password"
+                            sx={{ width: "30%" }}
+                            required
+                            value={initialData?.password || ""}
+                            onChange={handleInput}
+                            name="password"
+                            type="password"
+                        />
+                        <TextField
+                            label="Pincode"
+                            sx={{ width: "30%" }}
+                            required
+                            value={initialData?.address?.pinCode || ""}
+                            onChange={handleAddressInput}
+                            name="pinCode"
+                        />
+
+                    </div>
+                    <div className={styles.Formrow}>
+                        <TextField
+                            label="City"
+                            sx={{ width: "30%" }}
+                            required
+                            value={initialData?.address?.city || ""}
+                            onChange={handleAddressInput}
+                            name="city"
+                        />
+                        <TextField
+                            label="State"
+                            sx={{ width: "30%" }}
+                            required
+                            value={initialData?.address?.state || ""}
+                            onChange={handleAddressInput}
+                            name="state"
+                        />
+
+                    </div>
+                    <div className={styles.Formrow}>
+                        <TextField
+                            label="District"
+                            sx={{ width: "30%" }}
+                            required
+                            value={initialData?.address?.district || ""}
+                            onChange={handleAddressInput}
+                            name="district"
+                        />
+                        <TextField
+                            label="Address Line 1"
+                            sx={{ width: "30%" }}
+                            required
+                            value={initialData?.address?.addressLine1 || ""}
+                            onChange={handleAddressInput}
+                            name="addressLine1"
+                        />
+
                     </div>
                     <div className={styles.ButtonRow}>
                         <BlueButton text="Update Agent" type="submit" />

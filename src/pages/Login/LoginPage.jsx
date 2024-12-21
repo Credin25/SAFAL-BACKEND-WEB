@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../../styles/pages/Login/login.module.css';
 import logo from '../../../public/favicon.ico';
 import axios from 'axios';
 import { safalBackend } from '../../constants/apiRoutes';
-   {/* eslint-disable-next-line */}
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+{/* eslint-disable-next-line */ }
 function LoginPage({ onLoginSuccess }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-
+    const navigate = useNavigate();
+    useEffect(() => {
+        const refreshToken = Cookies.get('refreshToken');
+        if (refreshToken) {
+            navigate('/home', { replace: true });
+        }
+    },[]);
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Simple email and password validation
@@ -16,32 +24,35 @@ function LoginPage({ onLoginSuccess }) {
             setError('Email and password are required');
             return;
         }
-        
+
         try {
             const response = await axios.post(`${safalBackend}/auth/login`, {
                 email, password
             }, {
                 withCredentials: true
             });
-            
+
             if (response.data.success) {
-                const { email } = response.data.data;
-                localStorage.setItem('email', email); 
+                const { email, accessToken, refreshToken } = response.data.data;
+                Cookies.set('accessToken', accessToken);
+                Cookies.set('refreshToken', refreshToken);
+                localStorage.setItem('email', email);
                 onLoginSuccess();
             }
-            
             // Clear the form and error message
             setEmail('');
             setPassword('');
             setError('');
         } catch (error) {
-           if(error.response?.data?.message) {
+            console.error(error);  
+            if (error.response?.data?.message) {
                 setError(error.response.data.message);
+            } else {
+                setError('Login failed. Please check your credentials and try again.');
             }
-            setError('Login failed. Please check your credentials and try again.');
         }
     };
-    
+
 
     return (
         <div className={styles.container}>
@@ -77,7 +88,7 @@ function LoginPage({ onLoginSuccess }) {
 
                 {/* Footer */}
                 <div className={styles.footer}>
-                    © 2024 Upkram Technologies. All rights reserved.
+                    © {new Date().getFullYear()} Upkram Technologies. All rights reserved.
                 </div>
             </form>
         </div>
