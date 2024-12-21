@@ -25,7 +25,7 @@ const OurOrders = () => {
                     source: order?.source,
                     orderedBy: order?.userDetails?.name,
                     orderedItems: order?.orderedItems.map(item => `${item?.productId?.name} (x${item?.quantity})`).join(', '),
-                    orderDate: new Date(order?.orderDate).toLocaleDateString(),
+                    orderDate: new Date(order?.orderDate).toLocaleDateString('en-GB'),
                     orderStatus: order?.orderStatus,
                     amount: order?.amount,
                     agentMobile: order.source === "STAFF" ? order?.orderedFor?.phone : order?.orderedBy,
