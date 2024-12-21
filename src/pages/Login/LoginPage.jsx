@@ -34,8 +34,14 @@ function LoginPage({ onLoginSuccess }) {
 
             if (response.data.success) {
                 const { email, accessToken, refreshToken } = response.data.data;
-                Cookies.set('accessToken', accessToken);
-                Cookies.set('refreshToken', refreshToken);
+                Cookies.set('accessToken', accessToken, {
+                        sameSite: 'None', 
+                        secure: true,
+                });
+                Cookies.set('refreshToken', refreshToken, {
+                        sameSite: 'None', 
+                        secure: true,
+                });
                 localStorage.setItem('email', email);
                 onLoginSuccess();
             }
